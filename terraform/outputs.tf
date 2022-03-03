@@ -1,6 +1,12 @@
-output "Nombre-del-Compartimento" {
-  value = oci_identity_compartment.OPS-Compartment.name
+#Compartimento core
+output "Nombre-del-Compartimento-core" {
+  value = oci_identity_compartment.Core-Compartment.name
 }
-output "compartment-OCID" {
-  value = oci_identity_compartment.OPS-Compartment.id
+output "compartimento-core-OCID" {
+  value = oci_identity_compartment.Core-Compartment.id
 }
+#outputs de red core
+    output "vcn_core_id" {
+      description = "OCID de la vnc de core. "
+      value       = oci_core_vcn.vcncore.id
+    }

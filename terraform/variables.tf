@@ -1,3 +1,4 @@
+#GENERALES
 variable "TenancyID" {
   type = string
 }
@@ -13,7 +14,6 @@ variable "CompartmentID" {
 variable "private_key_path" {
   type = string
 }
-
 variable "fingerprint" {
   type = string
 }
@@ -21,5 +21,16 @@ variable "ssh_public_key" {
   type = string
 }
 variable "ssh_private_key" {
+  type = string
+}
+
+#Network
+    variable "vcn_core_display_name" {
+  type = string
+}
+    variable "vcn_core_cidr" {
+  type = string
+}
+    variable "vcn_core_dns_label" {
   type = string
 }
