@@ -101,7 +101,7 @@ ingress_security_rules {
      # cidr_block          = cidrsubnet(var.vcn_cidr, ceil(log(len527gth(data.oci_identity_availability_domains.ad1.availability_domains) * 2, 2)), count.index) <--torbellinos de colores
      # display_name        = "Default Subnet ${lookup(data.oci_identity_availability_domains.ad1.availability_domains[count.index], "name")}"<--torbellinos de colores
       cidr_block     = var.cluster_subnet_cidr 
-      display_name   = var.cluster_subnet_display_name
+      display_name   = "${var.vcn_cluster_display_name}-Subnet"
       prohibit_public_ip_on_vnic  = false
       dns_label                   = "${var.vcn_cluster_dns_label}${count.index + 1}"
       compartment_id              = oci_identity_compartment.Cluster-Compartment.id
