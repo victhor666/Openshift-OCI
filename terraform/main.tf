@@ -18,9 +18,9 @@ resource "oci_identity_compartment" "Core-Compartment" {
   description    = "Compartimento para recursos de Openshift."
   # New Compartment Name
   name = "Core-Openshift"
-  freeform_tags = {"Propietario"= "Infra",
-                   "Funcion"="Conectividad"
-          }
+  freeform_tags = { "Propietario" = "Infra",
+    "Funcion" = "Conectividad"
+  }
 }
 
 #################
