@@ -24,7 +24,7 @@ variable "ssh_private_key" {
   type = string
 }
 
-#Network
+#Network core
 variable "vcn_core_display_name" {
   type = string
 }

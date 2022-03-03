@@ -33,3 +33,12 @@ resource "oci_identity_compartment" "Core-Compartment" {
       compartment_id = oci_identity_compartment.Core-Compartment.id
       display_name   = var.vcn_core_display_name
     }
+#################
+# MODULO CLUSTER1
+#################
+module "Cluster" {
+  source                    = "../clustermod"
+  
+  
+  
+}
