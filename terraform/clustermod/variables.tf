@@ -16,6 +16,4 @@ variable "cluster_subnet_cidr" {
 variable "cluster_subnet_display_name" {
   type = string
 }
-variable "cluster_subnet_cidr" {
-  type = string
-}
+

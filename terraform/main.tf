@@ -37,7 +37,7 @@ resource "oci_identity_compartment" "Core-Compartment" {
 # MODULO CLUSTER1
 #################
 module "Cluster" {
-  source                    = "../clustermod"
+  source                    = "./clustermod"
   
   
   
