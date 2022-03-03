@@ -38,7 +38,5 @@ resource "oci_identity_compartment" "Core-Compartment" {
 #################
 module "Cluster" {
   source                    = "./clustermod"
-  
-  
-  
+  TenancyID                 =var.TenancyID
 }
