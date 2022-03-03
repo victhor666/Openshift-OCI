@@ -10,16 +10,16 @@ variable "Region" {
 variable "CompartmentID" {
   type = string
 }
-variable "private_key_path"{
+variable "private_key_path" {
   type = string
 }
 
-variable "fingerprint"{
+variable "fingerprint" {
   type = string
 }
-variable "ssh_public_key" { 
+variable "ssh_public_key" {
   type = string
 }
-variable "ssh_private_key" { 
-    type = string
+variable "ssh_private_key" {
+  type = string
 }
