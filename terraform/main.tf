@@ -27,7 +27,7 @@ resource "oci_identity_compartment" "Core-Compartment" {
 # VCN CORE
 #################
     
-    resource oci_core_vcn "vcnterra" {
+    resource oci_core_vcn "Vcn-Core" {
       dns_label      = var.vcn_core_dns_label
       cidr_block     = var.vcn_core_cidr
       compartment_id = oci_identity_compartment.Core-Compartment.id
