@@ -1,6 +1,6 @@
-output "compartment-name" {
-  value = oci_identity_compartment.tf-compartment.name
+output "Nombre-del-Compartimento" {
+  value = oci_identity_compartment.OPS-Compartment.name
 }
 output "compartment-OCID" {
-  value = oci_identity_compartment.tf-compartment.id
+  value = oci_identity_compartment.OPS-Compartment.id
 }
