@@ -18,18 +18,18 @@ resource "oci_identity_compartment" "Core-Compartment" {
   description    = "Compartimento para recursos de Openshift."
   # New Compartment Name
   name = "Core-Openshift"
-  freeform_tags = {"Propietario"= "Infra",
-                   "Funcion"="Conectividad"
-          }
+  freeform_tags = { "Propietario" = "Infra",
+    "Funcion" = "Conectividad"
+  }
 }
 
 #################
 # VCN CORE
 #################
-    
-    resource oci_core_vcn "vcnterra" {
-      dns_label      = var.vcn_core_dns_label
-      cidr_block     = var.vcn_core_cidr
-      compartment_id = oci_identity_compartment.Core-Compartment.id
-      display_name   = var.vcn_core_display_name
-    }
+
+resource "oci_core_vcn" "Vcn_Core" {
+  dns_label      = var.vcn_core_dns_label
+  cidr_block     = var.vcn_core_cidr
+  compartment_id = oci_identity_compartment.Core-Compartment.id
+  display_name   = var.vcn_core_display_name
+}
