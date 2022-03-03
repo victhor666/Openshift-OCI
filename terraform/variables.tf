@@ -1,25 +1,25 @@
 variable "TenancyID" {
-  Type = string
+  type = string
 }
 variable "UserID" {
-  Type = string
+  type = string
 }
 variable "Region" {
-  Type = string
+  type = string
 }
 variable "CompartmentID" {
-  Type = string
+  type = string
 }
 variable "private_key_path"{
-  Type = string
+  type = string
 }
 
 variable "fingerprint"{
-  Type = string
+  type = string
 }
 variable "ssh_public_key" { 
-   Type = string
+  type = string
 }
 variable "ssh_private_key" { 
-    Type = string
+    type = string
 }
