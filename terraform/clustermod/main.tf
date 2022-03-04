@@ -124,13 +124,17 @@ ingress_security_rules {
 #     display_name = "Peering con core network"
 # }
 ######################
-# Servers Centos
+# Servers CentOS
 ######################
 
+data "oci_identity_availability_domain" "ad" {
+  compartment_id = oci_identity_compartment.Cluster-Compartment.id
+  ad_number      = 1
+}
 
 resource "oci_core_instance" "test_instance" {
   #count               = var.num_instances
-  availability_domain = ""
+  availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = oci_identity_compartment.Cluster-Compartment.id
   display_name        = "Infra"
   shape               = var.shape
