@@ -38,7 +38,7 @@ output "compartimento-core-OCID" {
       description = "CIDR de la Subred core "
       value       = module.Cluster.cidr_subnet
     }
-    output "Subnet_nombre_Nombre" {
+    output "Subnet_cluster_Nombre" {
       description = "Nombre de la Subred Core "
       value       = module.Cluster.nombre_subnet
     }
