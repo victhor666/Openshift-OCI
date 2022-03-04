@@ -96,7 +96,8 @@ ingress_security_rules {
 ######################
 
     resource "oci_core_subnet" "Cluster-Subnet" {
-      count               = length(data.oci_identity_availability_domains.AD1.availability_domains)
+     #count               = length(data.oci_identity_availability_domains.AD1.availability_domains)
+      count               = 1
       availability_domain = lookup(data.oci_identity_availability_domains.AD1.availability_domains[count.index], "name")
      # cidr_block          = cidrsubnet(var.vcn_cidr, ceil(log(len527gth(data.oci_identity_availability_domains.ad1.availability_domains) * 2, 2)), count.index) <--torbellinos de colores
      # display_name        = "Default Subnet ${lookup(data.oci_identity_availability_domains.ad1.availability_domains[count.index], "name")}"<--torbellinos de colores
