@@ -132,7 +132,7 @@ data "oci_identity_availability_domain" "ad" {
   ad_number      = 1
 }
 
-resource "oci_core_instance" "test_instance" {
+resource "oci_core_instance" "Infra-Instance" {
   #count               = var.num_instances
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = oci_identity_compartment.Cluster-Compartment.id
