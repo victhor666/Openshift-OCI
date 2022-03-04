@@ -24,5 +24,5 @@
     }
         output "nombre_maquina_infra" {
       description = "Nombre maquina infraestructura "
-      value       = oci_core_instance.test_instance.display_name
+      value       = oci_core_instance.Infra-Instance.display_name
     }
