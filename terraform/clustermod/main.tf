@@ -50,7 +50,7 @@ resource "oci_identity_compartment" "Cluster-Compartment" {
 resource "oci_core_security_list" "Cluster-SL" {
   compartment_id = oci_identity_compartment.Cluster-Compartment.id
   vcn_id = oci_core_vcn.Vcn-Cluster.id
-  display_name = "Cluster-Security-List-Salida"
+  display_name = "Cluster-Security-List-Basica"
   egress_security_rules {
      protocol    = "all"
     destination = "0.0.0.0/0"
@@ -96,7 +96,7 @@ ingress_security_rules {
 ######################
 
     resource "oci_core_subnet" "Cluster-Subnet" {
-      count               = length(data.oci_identity_availability_domains.AD1.availability_domains)
+      #count               = length(data.oci_identity_availability_domains.AD1.availability_domains)
       availability_domain = lookup(data.oci_identity_availability_domains.AD1.availability_domains[count.index], "name")
      # cidr_block          = cidrsubnet(var.vcn_cidr, ceil(log(len527gth(data.oci_identity_availability_domains.ad1.availability_domains) * 2, 2)), count.index) <--torbellinos de colores
      # display_name        = "Default Subnet ${lookup(data.oci_identity_availability_domains.ad1.availability_domains[count.index], "name")}"<--torbellinos de colores
