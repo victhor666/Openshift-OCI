@@ -127,3 +127,40 @@ ingress_security_rules {
 # Servers Centos
 ######################
 
+
+resource "oci_core_instance" "test_instance" {
+  #count               = var.num_instances
+  availability_domain = data.oci_identity_availability_domain.AD1.name
+  compartment_id      = oci_identity_compartment.Cluster-Compartment.id
+  display_name        = "Infra"
+  shape               = var.instance_shape
+  shape_config {
+    ocpus = 1
+    memory_in_gbs = 4
+  }
+      metadata = {
+        ssh_authorized_keys = file(var.path_local_public_key)
+    } 
+
+  create_vnic_details {
+    subnet_id        = oci_core_subnet.Cluster-Subnet.id
+    display_name     = "Primaryvnic"
+    assign_public_ip = true
+    hostname_label   = "Infraestructura"
+  }
+
+  source_details {
+    source_type = "image"
+    source_id = var.Image_ID
+  }
+
+  agent_config {
+    are_all_plugins_disabled = false
+    is_management_disabled = true
+    is_monitoring_disabled = true
+    plugins_config {
+        name = "Compute Instance Monitoring"
+        desired_state = "ENABLED"
+      }
+  }
+}
