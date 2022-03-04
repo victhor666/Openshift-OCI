@@ -10,6 +10,9 @@ variable "vcn_cluster_dns_label" {
 variable "vcn_cluster_display_name" {
   type = string
 }
+variable "Tenancy" {
+  type = string
+}
 #Subnet
 variable "cluster_subnet_cidr" {
   type = string
