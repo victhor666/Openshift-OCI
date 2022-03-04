@@ -23,27 +23,27 @@ output "compartimento-core-OCID" {
   #outputs de red cluster
     output "vcn_cluster_cidr" {
       description = "CIDR de la red core "
-      value       = module.clustermod.cidr_vcn
+      value       = module.Cluster.cidr_vcn
     }
     output "vcn_nombre_Nombre" {
       description = "Nombre de la red Core "
-      value       = module.clustermod.nombre_vcn
+      value       = module.Cluster.nombre_vcn
     }
     output "vcn_cluster_DominioDNS" {
       description = "Nombre dominio cluster"
-      value       = module.clustermod.dominio_vcn
+      value       = module.Cluster.dominio_vcn
     }
      #outputs de Subred cluster
         output "vcn_cluster_cidr" {
       description = "CIDR de la Subred core "
-      value       = module.clustermod.cidr_subnet
+      value       = module.Cluster.cidr_subnet
     }
     output "vcn_nombre_Nombre" {
       description = "Nombre de la Subred Core "
-      value       = module.clustermod.nombre_subnet
+      value       = module.Cluster.nombre_subnet
     }
     output "vcn_cluster_DominioDNS" {
       description = "Nombre dominio Subred cluster"
-      value       = module.clustermod.dominio_subnet
+      value       = module.Cluster.dominio_subnet
     }
     
