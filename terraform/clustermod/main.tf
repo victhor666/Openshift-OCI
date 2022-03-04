@@ -113,3 +113,15 @@ ingress_security_rules {
 
     }
  
+######################
+# Peering 
+######################
+ resource "oci_core_local_peering_gateway" "Cluster-Peering" {
+    #Required
+    compartment_id = oci_identity_compartment.Cluster-Compartment.id
+    vcn_id = oci_core_vcn.Vcn-Core.id
+
+    #Optional
+    defined_tags = {"Operations.CostCenter"= "42"}
+    display_name = "Peering con core network"
+}
