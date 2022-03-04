@@ -8,9 +8,6 @@ variable "UserID" {
 variable "Region" {
   type = string
 }
-variable "CompartmentID" {
-  type = string
-}
 variable "private_key_path" {
   type = string
 }
