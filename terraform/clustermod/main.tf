@@ -3,7 +3,7 @@
 #######################
 
 resource "oci_identity_compartment" "Cluster-Compartment" {
-  compartment_id = var.TenancyID
+  compartment_id = var.Tenancy
   description    = "Compartimento para recursos del cluster."
   # New Compartment Name
   name = "Cluster-Openshift"
