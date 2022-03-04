@@ -24,14 +24,3 @@ variable "ssh_private_key" {
   type = string
 }
 
-#Network core
-variable "vcn_core_display_name" {
-  type = string
-}
-variable "vcn_core_cidr" {
-  type = string
-}
-variable "vcn_core_dns_label" {
-  type = string
-}
-
