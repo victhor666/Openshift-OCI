@@ -1,6 +1,14 @@
 #####################################
 #Definicion del proveedor y conexion
 #####################################
+terraform {
+  required_providers {
+    oci = {
+      source = "hashicorp/oci"
+      version = "4.66.0"
+    }
+  }
+}
 provider "oci" {
   tenancy_ocid     = var.TenancyID
   user_ocid        = var.UserID
