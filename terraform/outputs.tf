@@ -1,11 +1,11 @@
 #Compartimento core
 output "Nombre-del-Compartimento-core" {
   description = "Compartimento para elementos core"
-  value = oci_identity_compartment.Core-Compartment.name
+  value       = oci_identity_compartment.Core-Compartment.name
 }
 output "compartimento-core-OCID" {
-    description = "OCID del compartimento elementos core"
-  value = oci_identity_compartment.Core-Compartment.id
+  description = "OCID del compartimento elementos core"
+  value       = oci_identity_compartment.Core-Compartment.id
 }
 #outputs de red core
     output "vcn_core_cidr" {
