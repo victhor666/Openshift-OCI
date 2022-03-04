@@ -140,7 +140,7 @@ resource "oci_core_instance" "Infra-Instance" {
   shape               = var.shape
   shape_config {
     ocpus = 1
-    memory_in_gbs = 4
+    memory_in_gbs = 8
   }
       metadata = {
         ssh_authorized_keys = file(var.path_local_public_key)
