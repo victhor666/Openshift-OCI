@@ -133,7 +133,7 @@ resource "oci_core_instance" "test_instance" {
   availability_domain = ""
   compartment_id      = oci_identity_compartment.Cluster-Compartment.id
   display_name        = "Infra"
-  shape               = var.instance_shape
+  shape               = var.shape
   shape_config {
     ocpus = 1
     memory_in_gbs = 4
