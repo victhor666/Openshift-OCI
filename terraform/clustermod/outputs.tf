@@ -22,3 +22,7 @@
       description = "Nombre de la Subred "
       value       = oci_core_subnet.Cluster-Subnet.display_name
     }
+        output "nombre_maquina_infra" {
+      description = "Nombre maquina infraestructura "
+      value       = oci_core_instance.test_instance.display_name
+    }
