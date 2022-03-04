@@ -38,7 +38,7 @@ resource "oci_identity_compartment" "Core-Compartment" {
 #################
 module "Cluster" {
   source                    = "./clustermod"
-  Tenancy                   = var.TenancyID
+  Tenancy                   = "ocid1.tenancy.oc1..aaaaaaaaitp7vjo25jff4ehr7lkaztezse4qtdjluduaw56pnxkbsxyiyjgq"
   vcn_cluster_cidr          = "192.168.50.0/24"
   vcn_cluster_dns_label     = "ClusterNet"
   vcn_cluster_display_name  = "Cluster-Vcn"
