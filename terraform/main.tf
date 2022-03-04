@@ -28,15 +28,19 @@ resource "oci_identity_compartment" "Core-Compartment" {
 #################
     
     resource oci_core_vcn "Vcn-Core" {
-      dns_label      = var.vcn_core_dns_label
-      cidr_block     = var.vcn_core_cidr
+      dns_label      = "CoreNet"
+      cidr_block     = "192.168.10.0/24"
       compartment_id = oci_identity_compartment.Core-Compartment.id
-      display_name   = var.vcn_core_display_name
+      display_name   = "Vcn-Core"
     }
 #################
 # MODULO CLUSTER1
 #################
 module "Cluster" {
   source                    = "./clustermod"
-  TenancyID                 =var.TenancyID
+  Tenancy                   = var.TenancyID
+  vcn_cluster_cidr          = "192.168.50.0/24"
+  vcn_cluster_dns_label     = "ClusterNet"
+  vcn_cluster_display_name  = "Cluster-Vcn"
+  cluster_subnet_cidr       = "192.168.50.0/28"
 }

@@ -35,18 +35,3 @@ variable "vcn_core_dns_label" {
   type = string
 }
 
-#Network cluster
-variable "vcn_cluster_cidr" {
-  type = string
-}
-variable "vcn_cluster_dns_label" {
-  type = string
-}
-variable "vcn_cluster_display_name" {
-  type = string
-}
-
-#Subnet
-variable "cluster_subnet_cidr" {
-  type = string
-}
