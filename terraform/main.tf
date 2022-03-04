@@ -35,6 +35,7 @@ resource "oci_identity_compartment" "Core-Compartment" {
       freeform_tags = {"Propietario"= "Infra",
                        "Funcion"="Conectividad"}
     }
+     
 #################
 # MODULO CLUSTER1
 #################

@@ -97,14 +97,15 @@ ingress_security_rules {
 
     resource "oci_core_subnet" "Cluster-Subnet" {
       #count               = length(data.oci_identity_availability_domains.AD1.availability_domains)
-      count                = 1
-      availability_domain = lookup(data.oci_identity_availability_domains.AD1.availability_domains[count.index], "name")
+      availability_domain = ""
+     #availability_domain =  lookup(data.oci_identity_availability_domains.AD1.availability_domains[count.index], "name")""
      # cidr_block          = cidrsubnet(var.vcn_cidr, ceil(log(len527gth(data.oci_identity_availability_domains.ad1.availability_domains) * 2, 2)), count.index) <--torbellinos de colores
      # display_name        = "Default Subnet ${lookup(data.oci_identity_availability_domains.ad1.availability_domains[count.index], "name")}"<--torbellinos de colores
-      cidr_block     = var.cluster_subnet_cidr 
+      cidr_block     = var.cluster_subnet_cidr
+      #cidr_block    = cidrsubnet(var.cluster_subnet_cidr,8,1)
       display_name   = "${var.vcn_cluster_display_name}-Subnet"
       prohibit_public_ip_on_vnic  = false
-      dns_label                   = "${var.vcn_cluster_dns_label}${count.index + 1}"
+      dns_label                   = "Openshift"
       compartment_id              = oci_identity_compartment.Cluster-Compartment.id
       vcn_id                      = oci_core_vcn.Vcn-Cluster.id
       route_table_id              = oci_core_default_route_table.Rt-Cluster.id
@@ -114,14 +115,15 @@ ingress_security_rules {
     }
  
 ######################
-# Peering 
+# Peering  
 ######################
- resource "oci_core_local_peering_gateway" "Cluster-Peering" {
-    #Required
-    compartment_id = oci_identity_compartment.Cluster-Compartment.id
-    vcn_id = oci_core_vcn.Vcn-Core.id
+#  resource "oci_core_local_peering_gateway" "Cluster-Peering" {
+#     compartment_id = oci_identity_compartment.Cluster-Compartment.id
+#     vcn_id = oci_core_vcn.Vcn-Core.id
+#     defined_tags = {"Operations.CostCenter"= "42"}
+#     display_name = "Peering con core network"
+# }
+######################
+# Servers Centos
+######################
 
-    #Optional
-    defined_tags = {"Operations.CostCenter"= "42"}
-    display_name = "Peering con core network"
-}

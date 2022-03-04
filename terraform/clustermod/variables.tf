@@ -17,3 +17,17 @@ variable "Tenancy" {
 variable "cluster_subnet_cidr" {
   type = string
 }
+
+#Server
+variable "OS" {
+  default ="Centos"
+}
+variable "OS_Version"{
+  default = "8"
+}
+variable "shape"{
+  #default = "VM.Standard.E2.1.Micro"
+  #default = "VM.Standard.E2.2"
+  default = "VM.Standard.E2.1"
+}
+
