@@ -12,13 +12,13 @@
     }
         output "cidr_subnet" {
       description = "CIDR de la subred del  Cluster "
-      value       = oci_core_subnet.Cluster-Subnet[0].cidr_block
+      value       = oci_core_subnet.Cluster-Subnet.cidr_block
     }
         output "dominio_subnet" {
       description = "Nombre dominio dentro de la subnet"
-      value       = oci_core_subnet.Cluster-Subnet[0].dns_label
+      value       = oci_core_subnet.Cluster-Subnet.dns_label
     }
         output "nombre_subnet" {
       description = "Nombre de la Subred "
-      value       = oci_core_subnet.Cluster-Subnet[0].display_name
+      value       = oci_core_subnet.Cluster-Subnet.display_name
     }

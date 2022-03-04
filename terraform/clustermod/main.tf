@@ -130,7 +130,7 @@ ingress_security_rules {
 
 resource "oci_core_instance" "test_instance" {
   #count               = var.num_instances
-  availability_domain = data.oci_identity_availability_domain.AD1.name
+  availability_domain = data.oci_identity_availability_domains.AD1.name
   compartment_id      = oci_identity_compartment.Cluster-Compartment.id
   display_name        = "Infra"
   shape               = var.instance_shape
