@@ -12,3 +12,4 @@ crash.*.log
 *.pub
 *.pem
 *clave*
+*secret
