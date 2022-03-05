@@ -50,7 +50,7 @@ output "compartimento-core-OCID" {
       description = "Nombre maquina de infra"
       value       = module.Cluster.nombre_maquina_infra
     }
-           output "nombre_maquina_infra" {
+           output "nombre_maquina_master" {
       description = "Nombre maquina Master"
       value       = module.Cluster.nombre_maquina_master
     }
