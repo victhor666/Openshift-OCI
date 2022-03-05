@@ -32,7 +32,7 @@ variable "shape"{
 }
 
 variable "Image_ID"{
-  default = "ocid1.image.oc1.eu-amsterdam-1.aaaaaaaaejpci3y3yezvhvaxdez6nui7vdsfyny4rxnpitvq6xdue33g52aqocid1.image.oc1.eu-amsterdam-1.aaaaaaaaqmnjw3yb2vabb4b5vz5u2zihoxzy6yv4kivt3waifgtkt36hezpq"
+  default = "ocid1.image.oc1.eu-amsterdam-1.aaaaaaaaejpci3y3yezvhvaxdez6nui7vdsfyny4rxnpitvq6xdue33g52aq"
 }
 variable "path_local_public_key" {
   default = "~/Openshift-OCI/linuxuser.pub"
