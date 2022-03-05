@@ -24,5 +24,9 @@
     }
         output "nombre_maquina_infra" {
       description = "Nombre maquina infraestructura "
-      value       = oci_core_instance.Infra-Instance.display_name
+      value       = oci_core_instance.Infra-Instance.hostname_label
+    }
+            output "nombre_maquina_master" {
+      description = "Nombre maquina infraestructura "
+      value       = oci_core_instance.Master-Instance.hostname_label
     }
