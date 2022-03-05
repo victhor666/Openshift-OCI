@@ -174,7 +174,7 @@ resource "oci_core_instance" "Infra-Instance" {
 ######################
 # NODO MASTER
 ######################
-resource "oci_core_instance" "Infra-Instance" {
+resource "oci_core_instance" "Master-Instance" {
   #count               = var.num_instances
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = oci_identity_compartment.Cluster-Compartment.id
