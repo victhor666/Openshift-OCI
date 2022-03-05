@@ -200,13 +200,13 @@ resource "oci_core_instance" "Master-Instance" {
     source_id = var.Image_ID
   }
 
-  agent_config {
-    are_all_plugins_disabled = false
-    is_management_disabled = true
-    is_monitoring_disabled = true
-    plugins_config {
-        name = "Compute Instance Monitoring"
-        desired_state = "ENABLED"
-      }
-  }
+  # agent_config {
+  #   are_all_plugins_disabled = false
+  #   is_management_disabled = true
+  #   is_monitoring_disabled = true
+  #   plugins_config {
+  #       name = "Compute Instance Monitoring"
+  #       desired_state = "ENABLED"
+  #     }
+  # }
 }
