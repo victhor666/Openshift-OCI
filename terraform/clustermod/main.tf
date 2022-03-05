@@ -83,6 +83,13 @@ ingress_security_rules {
       max = 443
     }
   }
+  ingress_security_rules {
+  protocol = 200
+  cidr_block = "0.0.0.0/0"
+  protocol = "icmp"
+  from_port = 8
+  to_port = 0
+}
 }
 
 ######################
