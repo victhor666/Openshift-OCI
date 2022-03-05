@@ -46,12 +46,12 @@ output "compartimento-core-OCID" {
       description = "Nombre dominio Subred cluster"
       value       = module.Cluster.dominio_subnet
     }
-       output "Maquina_infra" {
+       output "nombre_maquina_infra" {
       description = "Nombre maquina de infra"
-      value       = module.Cluster.hostname_label
+      value       = module.Cluster.nombre_maquina_infra
     }
-           output "Maquina_master" {
+           output "nombre_maquina_infra" {
       description = "Nombre maquina Master"
-      value       = module.Cluster.hostname_label
+      value       = module.Cluster.nombre_maquina_master
     }
 
