@@ -39,3 +39,9 @@ variable "path_local_public_key" {
   default = "~/Openshift-OCI/linuxuser.pub"
   sensitive = true
 }
+variable "path_local_master_user_data" {
+  default = "~/Openshift-OCI/master_user_data.sh"
+}
+variable "path_local_master_user_data" {
+  default = "~/Openshift-OCI/master_user_data.sh"
+}

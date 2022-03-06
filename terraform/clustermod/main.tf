@@ -155,7 +155,8 @@ resource "oci_core_instance" "Infra-Instance" {
   }
       metadata = {
         ssh_authorized_keys = file(var.path_local_public_key)
-        user_data = base64encode(file(".~/Openshift-OCI/infra_user_data.sh"))
+        user_data = base64encode(file(var.path_local_infra_user_data))
+                                       
     } 
 
   create_vnic_details {
@@ -195,7 +196,7 @@ resource "oci_core_instance" "Master-Instance" {
   }
       metadata = {
         ssh_authorized_keys = file(var.path_local_public_key)
-        user_data = base64encode(file(".~/Openshift-OCI/master_user_data.sh"))
+        user_data = base64encode(file(var.path_local_infra_user_data))
     } 
 
   create_vnic_details {
