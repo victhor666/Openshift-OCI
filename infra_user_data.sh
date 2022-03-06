@@ -7,3 +7,7 @@ sudo systemctl unmask NetworkManager
 sudo systemctl start NetworkManager
 sudo systemctl enable NetworkManager
 sudo yum -y --enablerepo=epel install ansible pyOpenSSL
+
+sudo systemctl stop docker
+sudo systemctl restart docker
+sudo systemctl enable docker
