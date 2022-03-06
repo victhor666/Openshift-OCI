@@ -30,3 +30,7 @@
       description = "Nombre maquina infraestructura "
       value       = oci_core_instance.Master-Instance.display_name
     }
+                output "nombre_maquina_worker" {
+      description = "Nombre maquina worker "
+      value       = oci_core_instance.Worker-Instance.display_name
+    }
