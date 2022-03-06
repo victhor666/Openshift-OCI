@@ -42,6 +42,6 @@ variable "path_local_public_key" {
 variable "path_local_master_user_data" {
   default = "~/Openshift-OCI/master_user_data.sh"
 }
-variable "path_local_master_user_data" {
-  default = "~/Openshift-OCI/master_user_data.sh"
+variable "path_local_infra_user_data" {
+  default = "~/Openshift-OCI/infra_user_data.sh"
 }
