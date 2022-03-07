@@ -88,7 +88,7 @@ ingress_security_rules {
     protocol    = "1"
      icmp_options {
       type = 3
-      type = 4
+      code = 4
     } 
   }
 }
