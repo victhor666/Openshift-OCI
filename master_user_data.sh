@@ -9,7 +9,8 @@ sudo systemctl enable NetworkManager
 sudo yum -y --enablerepo=epel install ansible pyOpenSSL >> /tmp/log.txt
 #instalamos ansible aqui
 git clone https://github.com/openshift/openshift-ansible.git
+cd openshift-ansible && git fetch && git checkout release-3.9 && cd ..
 
-sudo systemctl stop docker
-sudo systemctl restart docker
-sudo systemctl enable docker
+# sudo systemctl stop docker
+# sudo systemctl restart docker
+# sudo systemctl enable docker

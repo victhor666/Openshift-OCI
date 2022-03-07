@@ -34,9 +34,9 @@ variable "shape"{
 variable "Image_ID"{
   #default = "ocid1.image.oc1.eu-amsterdam-1.aaaaaaaaejpci3y3yezvhvaxdez6nui7vdsfyny4rxnpitvq6xdue33g52aq"
   #centos7
-  #default ="ocid1.image.oc1.eu-amsterdam-1.aaaaaaaaipu6pm6lv6x4nmgorayhw43tqh5tuy55zkjasdjddjw6zkcuasxq"
+  default ="ocid1.image.oc1.eu-amsterdam-1.aaaaaaaaipu6pm6lv6x4nmgorayhw43tqh5tuy55zkjasdjddjw6zkcuasxq"
   #rhcos
-  default="ocid1.image.oc1.eu-amsterdam-1.aaaaaaaafxjjmi2g4blliilpxwc63xmzwte3nu6uxvfs7v5qaant2h3olenq"
+  #default="ocid1.image.oc1.eu-amsterdam-1.aaaaaaaafxjjmi2g4blliilpxwc63xmzwte3nu6uxvfs7v5qaant2h3olenq"
 }
 variable "path_local_public_key" {
   default = "~/Openshift-OCI/linuxuser.pub"

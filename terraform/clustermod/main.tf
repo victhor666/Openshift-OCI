@@ -84,11 +84,11 @@ ingress_security_rules {
     }
   }
   ingress_security_rules { 
-    stateless   = false
     source      = "0.0.0.0/0"
     protocol    = "1"
      icmp_options {
       type = 3
+      type = 4
     } 
   }
 }
@@ -104,8 +104,8 @@ ingress_security_rules {
 ######################
 
     resource "oci_core_subnet" "Cluster-Subnet" {
-      #count               = length(data.oci_identity_availability_domains.AD1.availability_domains)
-      availability_domain = ""
+     #count               = length(data.oci_identity_availability_domains.AD1.availability_domains)
+     #availability_domain = ""
      #availability_domain =  lookup(data.oci_identity_availability_domains.AD1.availability_domains[count.index], "name")""
      # cidr_block          = cidrsubnet(var.vcn_cidr, ceil(log(len527gth(data.oci_identity_availability_domains.ad1.availability_domains) * 2, 2)), count.index) <--torbellinos de colores
      # display_name        = "Default Subnet ${lookup(data.oci_identity_availability_domains.ad1.availability_domains[count.index], "name")}"<--torbellinos de colores
@@ -181,46 +181,46 @@ resource "oci_core_instance" "Infra-Instance" {
       }
   }
 }
-######################
+#####################
 # NODO MASTER
-######################
-# resource "oci_core_instance" "Master-Instance" {
-#   #count               = var.num_instances
-#   availability_domain = data.oci_identity_availability_domain.ad.name
-#   compartment_id      = oci_identity_compartment.Cluster-Compartment.id
-#   display_name        = "Master"
-#   shape               = var.shape
-#   shape_config {
-#     ocpus = 1
-#     memory_in_gbs = 8
-#   }
-#       metadata = {
-#         ssh_authorized_keys = file(var.path_local_public_key)
-#         user_data = base64encode(file(var.path_local_infra_user_data))
-#     } 
+#####################
+resource "oci_core_instance" "Master-Instance" {
+  #count               = var.num_instances
+  availability_domain = data.oci_identity_availability_domain.ad.name
+  compartment_id      = oci_identity_compartment.Cluster-Compartment.id
+  display_name        = "Master"
+  shape               = var.shape
+  shape_config {
+    ocpus = 1
+    memory_in_gbs = 8
+  }
+      metadata = {
+        ssh_authorized_keys = file(var.path_local_public_key)
+        user_data = base64encode(file(var.path_local_infra_user_data))
+    } 
 
-#   create_vnic_details {
-#     subnet_id        = oci_core_subnet.Cluster-Subnet.id
-#     display_name     = "Nic-Master"
-#     assign_public_ip = true
-#     hostname_label   = "Master"
-#   }
+  create_vnic_details {
+    subnet_id        = oci_core_subnet.Cluster-Subnet.id
+    display_name     = "Nic-Master"
+    assign_public_ip = true
+    hostname_label   = "Master"
+  }
 
-#   source_details {
-#     source_type = "image"
-#     source_id = var.Image_ID
-#   }
+  source_details {
+    source_type = "image"
+    source_id = var.Image_ID
+  }
 
-#   # agent_config {
-#   #   are_all_plugins_disabled = false
-#   #   is_management_disabled = true
-#   #   is_monitoring_disabled = true
-#   #   plugins_config {
-#   #       name = "Compute Instance Monitoring"
-#   #       desired_state = "ENABLED"
-#   #     }
-#   # }
-# }
+   agent_config {
+     are_all_plugins_disabled = false
+     is_management_disabled = true
+     is_monitoring_disabled = true
+     plugins_config {
+         name = "Compute Instance Monitoring"
+         desired_state = "ENABLED"
+       }
+   }
+}
 ######################
 # NODO WORKER
 ######################
