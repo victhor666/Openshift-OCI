@@ -26,21 +26,3 @@
       description = "Nombre maquina infraestructura "
       value       = oci_core_instance.Infra-Instance.display_name
     }
-    #         output "nombre_maquina_master" {
-    #   description = "Nombre maquina master "
-    #   value       = oci_core_instance.Master-Instance.display_name
-    # }
-    #             output "nombre_maquina_worker" {
-    #   description = "Nombre maquina worker "
-    #   value       = oci_core_instance.Worker-Instance.display_name
-    # }
-
-#    output "imagen_nombre" {
-#   value = data.oci_core_images.OSImage.images.0.display_name
-# }
-output "imagen_id" {
-  value = data.oci_core_images.OSImage.images.0.id
-}
-output "imagen_displayname" {
-  value = data.oci_core_images.OSImage.images.0.id
-}

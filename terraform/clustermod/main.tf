@@ -181,7 +181,7 @@ resource "oci_core_instance" "Infra-Instance" {
 
   source_details {
     source_type = "image"
-    source_id = var.Image_ID
+    source_id = data.oci_core_images.OSImage.images.0.id
   }
 
   agent_config {
