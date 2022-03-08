@@ -259,7 +259,7 @@ resource "oci_bastion_bastion" "BastionService" {
   name                         ="BastionService"
   max_session_ttl_in_seconds   = 1800
 }
-resource "oci_bastion_session" "BastionSession"{
+resource "oci_bastion_session" "BastionSessionInfra"{
   bastion_id                   = oci_bastion_bastion.BastionService.id
   key_details {
     public_key_content         = file(var.path_local_public_key)
@@ -275,7 +275,7 @@ resource "oci_bastion_session" "BastionSession"{
   key_type = "PUB"
   session_ttl_in_seconds = 1800
 }
-resource "oci_bastion_session" "BastionSession"{
+resource "oci_bastion_session" "BastionSessionMaster"{
   bastion_id                   = oci_bastion_bastion.BastionService.id
   key_details {
     public_key_content         = file(var.path_local_public_key)
