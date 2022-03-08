@@ -39,5 +39,5 @@
 #   value = data.oci_core_images.OSImage.images.0.display_name
 # }
 output "imagen_id" {
-  value = data.oci_core_images.OSImage.images
+  value = data.oci_core_images.OSImage.images[0]
 }

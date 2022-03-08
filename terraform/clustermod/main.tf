@@ -130,20 +130,35 @@ data "oci_identity_availability_domain" "ad" {
 ######################
 # IMAGEN
 ######################
+# data "oci_core_images" "OSImage" {
+#   compartment_id           = oci_identity_compartment.Cluster-Compartment.id
+#   operating_system         = var.sistema_operativo
+#   operating_system_version = var.version_os
+#   #shape                    = var.Shape
+#   sort_by = "TIMECREATED"
+#   sort_order = "DESC"
+
+#   # filter {
+#   #   name   = "display_name"
+#   #   values = ["^.*CentOS[^G]*$"]
+#   #   regex  = true
+#   # }
+# }
+
 data "oci_core_images" "OSImage" {
   compartment_id           = oci_identity_compartment.Cluster-Compartment.id
   operating_system         = var.sistema_operativo
-  operating_system_version = var.version_os
-  #shape                    = var.Shape
-  sort_by = "TIMECREATED"
-  sort_order = "DESC"
+  operating_system_version = var.linux_os_version
+  shape                    = var.shape
 
   # filter {
   #   name   = "display_name"
-  #   values = ["^.*CentOS[^G]*$"]
+  #   values = ["^.*Oracle[^G]*$"]
   #   regex  = true
   # }
 }
+
+
 
 
 ######################
