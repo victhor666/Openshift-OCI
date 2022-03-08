@@ -34,6 +34,10 @@
     #   description = "Nombre maquina worker "
     #   value       = oci_core_instance.Worker-Instance.display_name
     # }
-    output "imagen"{
-      value=data.oci_core_images.OSImage
-    }
+
+   output "imagen_nombre" {
+  value = data.oci_core_images.OSImage.0.display_name
+}
+output "imagen_id" {
+  value = data.data.oci_core_images.OSImage.0.id
+}
