@@ -225,7 +225,7 @@ resource "oci_core_instance" "Master-Instance" {
   create_vnic_details {
     subnet_id        = oci_core_subnet.Cluster-Subnet-Priv.id
     display_name     = "Nic-Master"
-    assign_public_ip = true
+    assign_public_ip = false
     hostname_label   = "Master"
   }
 
