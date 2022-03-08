@@ -31,6 +31,26 @@ resource "oci_identity_compartment" "Cluster-Compartment" {
       display_name = "Cluster-IGW"
       enabled = "true"
     }
+
+# Peering con Core
+resource "oci_core_local_peering_gateway" "Peering-VCNCluster" {
+  compartment_id = oci_identity_compartment.Cluster-Compartment.id
+  vcn_id         = oci_core_virtual_network.Vcn-Cluster.id
+  display_name   = "Peering-Cluster"
+}
+
+# LPG2 route table in VCN2
+resource "oci_core_route_table" "Peering-RTCluster" {
+  compartment_id = oci_identity_compartment.Cluster-Compartment.id
+  vcn_id         = oci_core_virtual_network.Vcn-Cluster.id
+  display_name   = "Tabla Rutas Peering en Cluster"
+  route_rules {
+    destination       = "192.168.10.0/24"
+    destination_type  = "CIDR_BLOCK"
+    network_entity_id = oci_core_local_peering_gateway.Peering-VCNCluster.id
+  }
+}
+
 #############################
 # Tabla de rutas por defecto   
 
