@@ -266,7 +266,7 @@ resource "oci_bastion_bastion" "BastionService" {
   max_session_ttl_in_seconds   = 1800
 }
 resource "oci_bastion_session" "BastionSessionInfra"{
-  depends_on=                  =[oci_core_instance.Infra-Instance]
+  depends_on                   =[oci_core_instance.Infra-Instance]
   bastion_id                   = oci_bastion_bastion.BastionService.id
   key_details {
     public_key_content         = file(var.path_local_public_key)
@@ -283,7 +283,7 @@ resource "oci_bastion_session" "BastionSessionInfra"{
   session_ttl_in_seconds = 1800
 }
 resource "oci_bastion_session" "BastionSessionMaster"{
-  depends_on=                  =[oci_core_instance.Master-Instance]
+  depends_on                   =[oci_core_instance.Master-Instance]
   bastion_id                   = oci_bastion_bastion.BastionService.id
   key_details {
     public_key_content         = file(var.path_local_public_key)
