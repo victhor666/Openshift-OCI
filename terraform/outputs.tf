@@ -50,18 +50,9 @@ output "compartimento-core-OCID" {
       description = "Nombre maquina de infra"
       value       = module.Cluster.nombre_maquina_infra
     }
-    #   output "nombre_maquina_master" {
-    #   description = "Nombre maquina Master"
-    #   value       = module.Cluster.nombre_maquina_master
-    # }
-    #   output "nombre_maquina_worker" {
-    #   description = "Nombre maquina worker"
-    #   value       = module.Cluster.nombre_maquina_worker
-    # }
-    # output "imagen_nombre"{
-    #   value=module.Cluster.imagen_nombre
-    # }
       output "imagen_id"{
       value=module.Cluster.imagen_id
     }
-
+      output "imagen_name"{
+      value=module.Cluster.imagen_displayname
+    }

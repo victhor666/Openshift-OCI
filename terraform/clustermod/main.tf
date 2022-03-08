@@ -148,18 +148,10 @@ data "oci_identity_availability_domain" "ad" {
 data "oci_core_images" "OSImage" {
   compartment_id           = oci_identity_compartment.Cluster-Compartment.id
   operating_system         = var.sistema_operativo
-  operating_system_version = var.linux_os_version
-  shape                    = var.shape
-
-  # filter {
-  #   name   = "display_name"
-  #   values = ["^.*Oracle[^G]*$"]
-  #   regex  = true
-  # }
+  operating_system_version = var.version_os
+  sort_by = "TIMECREATED"
+  sort_order = "DESC"
 }
-
-
-
 
 ######################
 # NODO INFRA

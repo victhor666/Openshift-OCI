@@ -54,6 +54,6 @@ module "Cluster" {
   vcn_cluster_dns_label     = "ClusterNet"
   vcn_cluster_display_name  = "Cluster-Vcn"
   cluster_subnet_cidr       = "192.168.50.0/28"
-  sistema_operativo         = "CentoOS"
+  sistema_operativo         = "CentOS"
   version_os                = "7.9"
 }
