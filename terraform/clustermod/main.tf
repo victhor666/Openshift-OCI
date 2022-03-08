@@ -291,7 +291,7 @@ resource "oci_bastion_session" "BastionSessionMaster"{
     target_resource_id         = oci_core_instance.Master-Instance.id
     target_resource_operating_system_user_name = "opc"
     target_resource_port = 22
-    target_resource_private_ip_address = oci_core_instance.Infra-Instance.private_ip
+    target_resource_private_ip_address = oci_core_instance.Master-Instance.private_ip
   }
   display_name = "AccesoMaster"
   key_type = "PUB"
