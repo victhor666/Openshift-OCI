@@ -48,3 +48,6 @@ variable "path_local_public_key" {
 variable "path_local_infra_user_data" {
   default = "~/Openshift-OCI/infra_user_data.sh"
 }
+variable "puertos_entrada"{
+  default=[22,80,443,8443]
+}

@@ -55,33 +55,19 @@ resource "oci_core_security_list" "Cluster-SL" {
      protocol    = "all"
     destination = "0.0.0.0/0"
   }
-  ingress_security_rules {
-    protocol = "6"
-    source   = "0.0.0.0/0"
 
-    tcp_options {
-      min = 22
-      max = 22
+  dynamic "ingress_security_rules" {
+    for_each = var.puertos_entrada
+    content {
+      protocol = "6"
+      source   = "0.0.0.0/0"
+      tcp_options {
+        max = ingress_security_rules.value
+        min = ingress_security_rules.value
+      }
     }
   }
 
-ingress_security_rules {
-    protocol = "6"
-    source   = "0.0.0.0/0"
-
-    tcp_options {
-      min = 80
-      max = 80
-    }
-  }
-ingress_security_rules {
-    protocol = "6"
-    source   = "0.0.0.0/0"
-
-    tcp_options {
-      min = 443
-      max = 443
-    }
   }
   ingress_security_rules { 
     source      = "0.0.0.0/0"
@@ -91,7 +77,7 @@ ingress_security_rules {
       code = 4
     } 
   }
-}
+  }
 
 ######################
 # Zonas de disponibilidad
