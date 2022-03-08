@@ -45,24 +45,24 @@ resource "oci_identity_compartment" "Core-Compartment" {
     }
 
 # Peering en VNC core
-resource "oci_core_local_peering_gateway" "Peering-VCNCore" {
-  compartment_id = oci_identity_compartment.Core-Compartment.id
-  vcn_id         = oci_core_vcn.Vcn-Core.id
-  display_name   = "Peering-Core"
-  peer_id        = oci_core_local_peering_gateway.Peering-VCNCluster.id
-}
+# resource "oci_core_local_peering_gateway" "Peering-VCNCore" {
+#   compartment_id = oci_identity_compartment.Core-Compartment.id
+#   vcn_id         = oci_core_vcn.Vcn-Core.id
+#   display_name   = "Peering-Core"
+#   peer_id        = oci_core_local_peering_gateway.Peering-VCNCluster.id
+# }
 
-# Rutas para el peering
-resource "oci_core_route_table" "Peering-RTCore" {
-  compartment_id = oci_identity_compartment.Core-Compartment.id
-  vcn_id         = oci_core_vcn.Vcn-Core.id
-  display_name   = "Tabla Rutas Peering en Core"
-  route_rules {
-    destination       = "192.168.50.0/24"
-    destination_type  = "CIDR_BLOCK"
-    network_entity_id = module.Cluster.data.network_indentity_cluster
-  }
-}     
+# # Rutas para el peering
+# resource "oci_core_route_table" "Peering-RTCore" {
+#   compartment_id = oci_identity_compartment.Core-Compartment.id
+#   vcn_id         = oci_core_vcn.Vcn-Core.id
+#   display_name   = "Tabla Rutas Peering en Core"
+#   route_rules {
+#     destination       = "192.168.50.0/24"
+#     destination_type  = "CIDR_BLOCK"
+#     network_entity_id = module.Cluster.data.network_indentity_cluster
+#   }
+# }     
 
 
 #################
