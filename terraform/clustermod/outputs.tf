@@ -35,9 +35,9 @@
     #   value       = oci_core_instance.Worker-Instance.display_name
     # }
 
-   output "imagen_nombre" {
-  value = data.oci_core_images.OSImage.images.0.display_name
-}
+#    output "imagen_nombre" {
+#   value = data.oci_core_images.OSImage.images.0.display_name
+# }
 output "imagen_id" {
-  value = data.oci_core_images.OSImage.images.0.id
+  value = data.oci_core_images.OSImage.images
 }
