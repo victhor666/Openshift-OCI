@@ -135,12 +135,14 @@ data "oci_core_images" "OSImage" {
   operating_system         = var.sistema_operativo
   operating_system_version = var.version_os
   #shape                    = var.Shape
+  sort_by = "TIMECREATED"
+  sort_order = "DESC"
 
-  filter {
-    name   = "display_name"
-    values = ["^.*CentOS[^G]*$"]
-    regex  = true
-  }
+  # filter {
+  #   name   = "display_name"
+  #   values = ["^.*CentOS[^G]*$"]
+  #   regex  = true
+  # }
 }
 
 
