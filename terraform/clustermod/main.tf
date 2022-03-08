@@ -39,7 +39,7 @@ resource "oci_core_local_peering_gateway" "Peering-VCNCluster" {
   display_name   = "Peering-Cluster"
 }
 
-# LPG2 route table in VCN2
+# Rutas de peering para Cluster
 resource "oci_core_route_table" "Peering-RTCluster" {
   compartment_id = oci_identity_compartment.Cluster-Compartment.id
   vcn_id         = oci_core_virtual_network.Vcn-Cluster.id
@@ -49,6 +49,9 @@ resource "oci_core_route_table" "Peering-RTCluster" {
     destination_type  = "CIDR_BLOCK"
     network_entity_id = oci_core_local_peering_gateway.Peering-VCNCluster.id
   }
+}
+data "oci_core_route_table" "networkentity"{
+ network_indentity_cluster=oci_core_route_table.Peering-RTCluster.network_entity_id
 }
 
 #############################

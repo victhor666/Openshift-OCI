@@ -60,7 +60,7 @@ resource "oci_core_route_table" "Peering-RTCore" {
   route_rules {
     destination       = "192.168.50.0/24"
     destination_type  = "CIDR_BLOCK"
-    network_entity_id = oci_core_local_peering_gateway.Peering-VCNCore.id
+    network_entity_id = module.Cluster.data.network_indentity_cluster
   }
 }     
 
