@@ -110,7 +110,7 @@ resource "oci_core_security_list" "Cluster-SL" {
     resource "oci_core_subnet" "Cluster-Subnet" {
       cidr_block                  = var.cluster_subnet_cidr
       display_name                = "${var.vcn_cluster_display_name}-Subnet"
-      dns_label                   = "Openshift"
+      dns_label                   = "Bastion"
       compartment_id              = oci_identity_compartment.Cluster-Compartment.id
       vcn_id                      = oci_core_vcn.Vcn-Cluster.id
       route_table_id              = oci_core_default_route_table.Rt-Cluster.id
@@ -122,7 +122,7 @@ resource "oci_core_security_list" "Cluster-SL" {
 resource "oci_core_subnet" "Cluster-Subnet-Priv" {
   cidr_block                      = var.cluster_subnet_priv_cidr
   display_name                    = "${var.vcn_cluster_display_name}-Subnet-Priv"
-  dns_label                       = "Openshiftpriv"
+  dns_label                       = "Openshift"
   compartment_id                  = oci_identity_compartment.Cluster-Compartment.id
   vcn_id                          = oci_core_vcn.Vcn-Cluster.id
   route_table_id                  = oci_core_route_table.Nat-GW-RT.id
@@ -207,7 +207,7 @@ resource "oci_core_instance" "Infra-Instance" {
 # NODO MASTER
 #####################
 resource "oci_core_instance" "Master-Instance" {
-  #count               = var.num_instances
+  assign_public_ip    = false
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = oci_identity_compartment.Cluster-Compartment.id
   display_name        = "Master"
@@ -222,7 +222,7 @@ resource "oci_core_instance" "Master-Instance" {
     } 
 
   create_vnic_details {
-    subnet_id        = oci_core_subnet.Cluster-Subnet.id
+    subnet_id        = oci_core_subnet.Cluster-Subnet-Priv.id
     display_name     = "Nic-Master"
     assign_public_ip = true
     hostname_label   = "Master"
@@ -271,7 +271,23 @@ resource "oci_bastion_session" "BastionSession"{
     target_resource_port = 22
     target_resource_private_ip_address = oci_core_instance.Infra-Instance.private_ip
   }
-  display_name = "AccesoViaBastion"
+  display_name = "AccesoInfra"
+  key_type = "PUB"
+  session_ttl_in_seconds = 1800
+}
+resource "oci_bastion_session" "BastionSession"{
+  bastion_id                   = oci_bastion_bastion.BastionService.id
+  key_details {
+    public_key_content         = file(var.path_local_public_key)
+  }
+  target_resource_details {
+    session_type               = "MANAGED_SSH"
+    target_resource_id         = oci_core_instance.Master-Instance.id
+    target_resource_operating_system_user_name = "opc"
+    target_resource_port = 22
+    target_resource_private_ip_address = oci_core_instance.Infra-Instance.private_ip
+  }
+  display_name = "AccesoMaster"
   key_type = "PUB"
   session_ttl_in_seconds = 1800
 }
