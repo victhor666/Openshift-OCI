@@ -86,6 +86,18 @@ resource "oci_core_nat_gateway" "Nat-GW" {
   vcn_id         = oci_core_vcn.Vcn-Cluster.id
 }
 
+# Route Table for NAT
+resource "oci_core_route_table" "Nat-GW-RT" {
+  compartment_id = oci_identity_compartment.Cluster-Compartment.id
+  vcn_id         = oci_core_vcn.Vcn-Cluster.id
+  display_name   = "Tabla de rutas via NAT"
+  route_rules {
+    destination       = "0.0.0.0/0"
+    destination_type  = "CIDR_BLOCK"
+    network_entity_id = oci_core_nat_gateway.Nat-GW.id
+  }
+}
+
 
 #############################
 # Zonas de disponibilidad
