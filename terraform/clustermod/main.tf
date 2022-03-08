@@ -202,7 +202,6 @@ resource "oci_core_instance" "Infra-Instance" {
       }
   }
   provisioner "local-exec"{
-   description="Hay que darle tiempo a arrancar a los agentes"
    command = "sleep 240"
    }
 }
@@ -245,7 +244,6 @@ resource "oci_core_instance" "Master-Instance" {
        }
    }
    provisioner "local-exec"{
-   description="Hay que darle tiempo a arrancar a los agentes"
    command = "sleep 240"
    }
 }
