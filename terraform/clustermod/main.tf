@@ -85,7 +85,6 @@ resource "oci_core_nat_gateway" "Nat-GW" {
   display_name   = "Nat-GW para instancias sin acceso exterior"
   vcn_id         = oci_core_vcn.Vcn-Cluster.id
 }
-
 # Route Table for NAT
 resource "oci_core_route_table" "Nat-GW-RT" {
   compartment_id = oci_identity_compartment.Cluster-Compartment.id
@@ -185,7 +184,7 @@ resource "oci_core_instance" "Infra-Instance" {
 
   create_vnic_details {
     assign_public_ip = false
-    subnet_id        = oci_core_subnet.Cluster-Subnet.id
+    subnet_id        = oci_core_subnet.Cluster-Subnet-Priv.id
     display_name     = "Nic-Infra"
     hostname_label   = "Infraestructura"
   }
