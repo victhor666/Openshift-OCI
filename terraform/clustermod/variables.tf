@@ -55,6 +55,6 @@ variable "sistema_operativo"{
   default ="CentOS"
 }
 variable "version_os"{
-  default= "8"
+  default= "7"
 
 }
