@@ -132,8 +132,8 @@ data "oci_identity_availability_domain" "ad" {
 ######################
 data "oci_core_images" "OSImage" {
   compartment_id           = oci_identity_compartment.Cluster-Compartment.id
-  operating_system         = var.instance_os
-  operating_system_version = var.linux_os_version
+  operating_system         = var.sistema_operativo
+  operating_system_version = var.version_os
   #shape                    = var.Shape
 
   filter {
