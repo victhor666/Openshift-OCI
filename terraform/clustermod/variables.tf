@@ -51,3 +51,10 @@ variable "path_local_infra_user_data" {
 variable "puertos_entrada"{
   default=[22,80,443,8443]
 }
+variable "sistema_operativo"{
+  default ="CentOS"
+}
+variable "version_os"{
+  default= "7.9"
+
+}

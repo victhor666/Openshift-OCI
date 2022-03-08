@@ -58,4 +58,7 @@ output "compartimento-core-OCID" {
     #   description = "Nombre maquina worker"
     #   value       = module.Cluster.nombre_maquina_worker
     # }
+    output "imagen"{
+      value=module.imagen
+    }
 
