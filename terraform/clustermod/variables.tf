@@ -13,11 +13,13 @@ variable "vcn_cluster_display_name" {
 variable "Tenancy" {
   type = string
 }
-#Subnet
+#Subnet Publica
 variable "cluster_subnet_cidr" {
   type = string
 }
-
+variable "cluster_subnet_priv_cidr" {
+  type = string
+}
 #Server
 variable "OS" {
   default ="Centos"

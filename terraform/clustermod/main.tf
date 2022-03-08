@@ -108,25 +108,30 @@ resource "oci_core_route_table" "Nat-GW-RT" {
 ######################
 # Subredes
 ######################
-
+#Publica
     resource "oci_core_subnet" "Cluster-Subnet" {
-     #count               = length(data.oci_identity_availability_domains.AD1.availability_domains)
-     #availability_domain = ""
-     #availability_domain =  lookup(data.oci_identity_availability_domains.AD1.availability_domains[count.index], "name")""
-     # cidr_block          = cidrsubnet(var.vcn_cidr, ceil(log(len527gth(data.oci_identity_availability_domains.ad1.availability_domains) * 2, 2)), count.index) <--torbellinos de colores
-     # display_name        = "Default Subnet ${lookup(data.oci_identity_availability_domains.ad1.availability_domains[count.index], "name")}"<--torbellinos de colores
       cidr_block     = var.cluster_subnet_cidr
-      #cidr_block    = cidrsubnet(var.cluster_subnet_cidr,8,1)
       display_name   = "${var.vcn_cluster_display_name}-Subnet"
       prohibit_public_ip_on_vnic  = false
       dns_label                   = "Openshift"
       compartment_id              = oci_identity_compartment.Cluster-Compartment.id
       vcn_id                      = oci_core_vcn.Vcn-Cluster.id
       route_table_id              = oci_core_default_route_table.Rt-Cluster.id
-      security_list_ids           = ["${oci_core_security_list.Cluster-SL.id}"]
+      security_list_ids           = [oci_core_security_list.Cluster-SL.id]
       dhcp_options_id             = oci_core_vcn.Vcn-Cluster.default_dhcp_options_id
-
     }
+#Privada
+resource "oci_core_subnet" "Cluster-Subnet-Priv" {
+  cidr_block                 = var.WebSubnet-CIDR
+  display_name               = "Openshift-Priv"
+  dns_label                  = "Openshiftpriv"
+  compartment_id             = oci_identity_compartment.Cluster-Compartment.id
+  vcn_id                     = oci_core_vcn.Vcn-Cluster.id
+  route_table_id             = oci_core_route_table.Nat-GW-RT.id
+  dhcp_options_id            = oci_core_vcn.Vcn-Cluster.default_dhcp_options_id
+  security_list_ids          = [oci_core_security_list.Cluster-SL.id]
+  prohibit_public_ip_on_vnic = true
+}
  
 ######################
 # Peering  
@@ -179,9 +184,9 @@ resource "oci_core_instance" "Infra-Instance" {
     } 
 
   create_vnic_details {
+    assign_public_ip = false
     subnet_id        = oci_core_subnet.Cluster-Subnet.id
     display_name     = "Nic-Infra"
-    assign_public_ip = true
     hostname_label   = "Infraestructura"
   }
 
