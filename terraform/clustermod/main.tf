@@ -77,11 +77,19 @@ resource "oci_core_security_list" "Cluster-SL" {
   }
 }
 
+#####################
+# NAT Gateway
+#####################
+resource "oci_core_nat_gateway" "Nat-GW" {
+  compartment_id = oci_identity_compartment.Cluster-Compartment.id
+  display_name   = "Nat-GW para instancias sin acceso exterior"
+  vcn_id         = oci_core_vcn.Vcn-Cluster.id
+}
 
 
-######################
+#############################
 # Zonas de disponibilidad
-######################
+#############################
     data "oci_identity_availability_domains" "AD1" {
       compartment_id = oci_identity_compartment.Cluster-Compartment.id
     }  
@@ -130,20 +138,6 @@ data "oci_identity_availability_domain" "ad" {
 ######################
 # IMAGEN
 ######################
-# data "oci_core_images" "OSImage" {
-#   compartment_id           = oci_identity_compartment.Cluster-Compartment.id
-#   operating_system         = var.sistema_operativo
-#   operating_system_version = var.version_os
-#   #shape                    = var.Shape
-#   sort_by = "TIMECREATED"
-#   sort_order = "DESC"
-
-#   # filter {
-#   #   name   = "display_name"
-#   #   values = ["^.*CentOS[^G]*$"]
-#   #   regex  = true
-#   # }
-# }
 
 data "oci_core_images" "OSImage" {
   compartment_id           = oci_identity_compartment.Cluster-Compartment.id
