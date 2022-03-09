@@ -77,7 +77,59 @@ resource "oci_core_default_route_table" "Rt-Core" {
     destination       = "0.0.0.0/0"
     network_entity_id = oci_core_internet_gateway.Gtw-Core.id
   }
+    dynamic "ingress_security_rules" {
+    for_each = var.puertos_entrada
+    content {
+      protocol = "6"
+      source   = "0.0.0.0/0"
+      tcp_options {
+        max = ingress_security_rules.value
+        min = ingress_security_rules.value
+      }
+    }
+  }
 }
+#################
+# TEST SERVER 
+#################
+    
+resource "oci_core_instance" "Test" {
+  availability_domain = data.oci_identity_availability_domain.ad.name
+  compartment_id      = oci_identity_compartment.Core-Compartment.id
+  display_name        = "Test"
+  shape               = var.shape
+  shape_config {
+    ocpus = 1
+    memory_in_gbs = 8
+  }
+      metadata = {
+        ssh_authorized_keys = file(var.path_local_public_key)
+    } 
+
+  create_vnic_details {
+    assign_public_ip = false
+    subnet_id        = oci_core_subnet.Core-Subnet-Priv.id
+    display_name     = "Nic-Test"
+    hostname_label   = "TestNic"
+  }
+
+  source_details {
+    source_type = "image"
+    source_id = data.oci_core_images.OSImage.images.0.id
+  }
+
+  agent_config {
+    are_all_plugins_disabled = false
+    is_management_disabled = false
+    is_monitoring_disabled = true
+    plugins_config {
+        name = "Bastion"
+        desired_state = "ENABLED"
+      }
+  }
+
+}
+
 # Peering en VNC core
 # resource "oci_core_local_peering_gateway" "Peering-VCNCore" {
 #   compartment_id = oci_identity_compartment.Core-Compartment.id

@@ -121,12 +121,6 @@ resource "oci_core_security_list" "Cluster-SL" {
   }
 }
 
-#############################
-# Zonas de disponibilidad
-#############################
-    data "oci_identity_availability_domains" "AD1" {
-      compartment_id = oci_identity_compartment.Cluster-Compartment.id
-    }  
 ######################
 # Subredes
 ######################
@@ -167,12 +161,12 @@ resource "oci_core_subnet" "Cluster-Subnet-Priv" {
 ######################
 # Servers CentOS
 ######################
+# Zonas de disponibilidad
 
 data "oci_identity_availability_domain" "ad" {
   compartment_id = oci_identity_compartment.Cluster-Compartment.id
   ad_number      = 1
 }
-
 
 ######################
 # IMAGEN
@@ -200,8 +194,7 @@ resource "oci_core_instance" "Infra-Instance" {
   }
       metadata = {
         ssh_authorized_keys = file(var.path_local_public_key)
-        user_data = base64encode(file(var.path_local_infra_user_data))
-                                       
+        user_data = base64encode(file(var.path_local_infra_user_data))                             
     } 
 
   create_vnic_details {
