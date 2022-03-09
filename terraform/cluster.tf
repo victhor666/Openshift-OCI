@@ -33,27 +33,13 @@ resource "oci_identity_compartment" "Cluster-Compartment" {
     }
 
 # Peering con Core
-# resource "oci_core_local_peering_gateway" "Peering-VCNCluster" {
-#   compartment_id = oci_identity_compartment.Cluster-Compartment.id
-#   vcn_id         = oci_core_virtual_network.Vcn-Cluster.id
-#   display_name   = "Peering-Cluster"
-# }
+resource "oci_core_local_peering_gateway" "Peering-VCNCluster" {
+   compartment_id = oci_identity_compartment.Cluster-Compartment.id
+   vcn_id         = oci_core_virtual_network.Vcn-Cluster.id
+   display_name   = "Peering-Cluster"
+   peer_id        = oci_core_local_peering_gateway.Peering-VCNCore.id
+ }
 
-# # Rutas de peering para Cluster
-# resource "oci_core_route_table" "Peering-RTCluster" {
-#   compartment_id = oci_identity_compartment.Cluster-Compartment.id
-#   vcn_id         = oci_core_virtual_network.Vcn-Cluster.id
-#   display_name   = "Tabla Rutas Peering en Cluster"
-#   route_rules {
-#     destination       = "192.168.10.0/24"
-#     destination_type  = "CIDR_BLOCK"
-#     network_entity_id = oci_core_local_peering_gateway.Peering-VCNCluster.id
-#   }
-# }
-# data "oci_core_route_tables" "networkentity"{
-#   compartment_id = oci_identity_compartment.Cluster-Compartment.id
-#   network_indentity_cluster=oci_core_route_table.Peering-RTCluster.network_entity_id
-# }
 
 #############################
 # Tabla de rutas por defecto   
@@ -65,6 +51,11 @@ resource "oci_identity_compartment" "Cluster-Compartment" {
         destination       = "0.0.0.0/0"
         network_entity_id = oci_core_internet_gateway.Gtw-Cluster.id
       }
+    route_rules {
+    destination       = var.core_vcn_cidr
+    destination_type  = "CIDR_BLOCK"
+    network_entity_id = oci_core_local_peering_gateway.Peering-VCNCluster.id
+  }
     }
 
 #####################

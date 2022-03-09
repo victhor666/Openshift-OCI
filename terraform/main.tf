@@ -112,7 +112,7 @@ resource "oci_core_local_peering_gateway" "Peering-VCNCore" {
   compartment_id = oci_identity_compartment.Core-Compartment.id
   vcn_id         = oci_core_vcn.Vcn-Core.id
   display_name   = "Peering-Core"
-  peer_id        = oci_core_local_peering_gateway.Peering-VCNCore.id
+  peer_id        = oci_core_local_peering_gateway.Peering-VCNCluster.id
 }
 
 
