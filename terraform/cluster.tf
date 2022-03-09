@@ -36,7 +36,7 @@ resource "oci_identity_compartment" "Cluster-Compartment" {
 ###################### 
 resource "oci_core_local_peering_gateway" "Peering-VCNCluster" {
    compartment_id = oci_identity_compartment.Cluster-Compartment.id
-   vcn_id         = oci_core_virtual_network.Vcn-Cluster.id
+   vcn_id         = oci_core_vcn.Vcn-Cluster.id
    display_name   = "Peering-Cluster"
  }
 
