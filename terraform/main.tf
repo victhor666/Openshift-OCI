@@ -108,7 +108,7 @@ resource "oci_core_instance" "Test" {
 
   create_vnic_details {
     assign_public_ip = false
-    subnet_id        = oci_core_subnet.Core-Subnet-Priv.id
+    subnet_id        = oci_core_subnet.Core-Subnet.id
     display_name     = "Nic-Test"
     hostname_label   = "TestNic"
   }
