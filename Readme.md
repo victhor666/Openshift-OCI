@@ -7,7 +7,7 @@ La arquitectura es la siguiente:
 ![esquema](/esquema.png)
 
 
-Varios pasos a completar para replicar esta infraestructura
+<h2>Varios pasos a completar para replicar esta infraestructura</h2>
 
 <h3>Generación de claves para que terraform acceda a OCI</h3>
 
@@ -21,4 +21,28 @@ Varios pasos a completar para replicar esta infraestructura
 La clave publica será algo así, que utilizaremos en nuestros scripts:
 
 <p> ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCwDgfXC8dEjv6dteMCoQpM+wrxDkWg1MkXE0TxDsoEnf/tGJh/TTHMZoyXZuPBXLeFUesTCLYsO/gFrNzN0uTjv5V972KiOnfA7hm2XsU/pOw1FkPShfLTociJPR69eGX4E9kywSwUiRg+SsSTKFwNP4zMWXuCCljjtdanJKgPYUgEG/YUstamsFePQo0WvIrXlrP6fXzL+IN0KTqv6/8FW4BKFV3k0iI6f7xIX+9e86K/dYdjW9GqPUXX2WojoqDYCkh7D/bj73+OyzGGNKpOg2iywAqcA6QaxDC6FhhslRcigZnveC1U697gHlmfFJVtL7FeG5IA4iDjD3F6AXgJ Usuario para Acceso servidores linux </p>
+
+Ahora ya con las claves creadas podemos proceder al despliegue de la infra. Pero antes, deberemos facilitar la clave pública clavedeoci.pub en el portal de OCI. (Esta acción solo se realiza una vez)
+
+![adduser](/add_oracle_user.png)
+
+Una vez añadido, terraform tendrá los mismos permisos que el usuario asignado. Lo ideal es circunscribir los mismos a las tareas que vaya a realizar, pero no vamos a tratar cuestiones de seguridad aqui. 
+
+Para poder lanzar la infra con terraform, recomendamos un fichero de variables tfvars con este formato:
+
+<p>
+TenancyID="ocid1.tenancy.oc1..aaaaaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+UserID="ocid1.user.oc1..aaaaaaaaccXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+Region="eu-amsterdam-1"        -----------> o la region en la que se quiera desplegar
+private_key_path="~/clavedeoci" ----------->La que acabamos de crear 
+fingerprint="4c:ff:59:64:c7:f3:f8:a7:ee:cb:5b:7f:09:8c:2b:9c" --> ahora comentamos sobre esto
+ssh_private_key="~/linuxuser"
+ssh_public_key="~/linuxuserpub"
+</p>
+<p3>IMPORTANTE- Esta información no debe ser visible y los ficheros privados NO deben ser compartidos ni subidos a ningún sitio.</p3>
+
+Y por otro lado, personalizar los valores por defecto de los ficheros de variables. Se pueden cambiar las rutas, rangos, nombres...
+
+
+
 
