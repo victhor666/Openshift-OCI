@@ -31,13 +31,14 @@ Una vez añadido, terraform tendrá los mismos permisos que el usuario asignado.
 Para poder lanzar la infra con terraform, recomendamos un fichero de variables tfvars con este formato:
 
 
-<p>TenancyID="ocid1.tenancy.oc1..aaaaaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</p>
-<p>UserID="ocid1.user.oc1..aaaaaaaaccXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</p>
-<p>Region="eu-amsterdam-1"        -----------> o la region en la que se quiera desplegar</p>
-<p>private_key_path="~/clavedeoci" ----------->La que acabamos de crear </p>
-<p>fingerprint="4c:ff:59:64:c7:f3:f8:a7:ee:cb:5b:7f:09:8c:2b:9c" --> Valor extraído de la consola de oci al insertar la clave publica</p>
-<p>ssh_private_key="~/linuxuser"</p>
-<p>ssh_public_key="~/linuxuserpub"</p>
+<p>*TenancyID="ocid1.tenancy.oc1..aaaaaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+UserID="ocid1.user.oc1..aaaaaaaaccXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+Region="eu-amsterdam-1"        -----------> o la region en la que se quiera desplegar
+private_key_path="~/clavedeoci" ----------->La que acabamos de crear 
+fingerprint="4c:ff:59:64:c7:f3:f8:a7:ee:cb:5b:7f:09:8c:2b:9c" --> Valor extraído de la consola de oci al insertar la clave publica
+ssh_private_key="~/linuxuser"
+ssh_public_key="~/linuxuserpub"*
+</p>
 
 
 <p3>**IMPORTANTE**- Esta información no debe ser visible y los ficheros privados **NO** deben ser compartidos ni subidos aun repositorio publico.</p3>
