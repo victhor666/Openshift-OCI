@@ -55,7 +55,9 @@ resource "oci_core_subnet" "Core-Subnet" {
   dhcp_options_id             = oci_core_vcn.Vcn-Core.default_dhcp_options_id
   prohibit_public_ip_on_vnic  = false
 }
-
+#########################
+# VCN CORE SECURITY LISTS
+#########################
 resource "oci_core_security_list" "Core-SL" {
   compartment_id = oci_identity_compartment.Core-Compartment.id
   vcn_id = oci_core_vcn.Vcn-Core.id
@@ -76,19 +78,44 @@ resource "oci_core_security_list" "Core-SL" {
     }
   }
 }
+#########################
+# VCN CORE GATEWAY
+#########################
     resource oci_core_internet_gateway "Gtw-Core" {
       compartment_id = oci_identity_compartment.Core-Compartment.id
       vcn_id         = oci_core_vcn.Vcn-Core.id 
       display_name = "Core-IGW"
       enabled = "true"
     }
+
+#########################
+# VCN CORE RUTAS
+#########################
 resource "oci_core_default_route_table" "Rt-Core" {
   manage_default_resource_id = oci_core_vcn.Vcn-Core.default_route_table_id
   route_rules {
     destination       = "0.0.0.0/0"
     network_entity_id = oci_core_internet_gateway.Gtw-Core.id
   }
+    route_rules {
+    destination       = var.vcn_cluster_cidr
+    destination_type  = "CIDR_BLOCK"
+    network_entity_id = oci_core_local_peering_gateway.Peering-VCNCore.id
+  }
 }
+
+
+#########################
+# VCN CORE PEERING
+#########################
+resource "oci_core_local_peering_gateway" "Peering-VCNCore" {
+  compartment_id = oci_identity_compartment.Core-Compartment.id
+  vcn_id         = oci_core_vcn.Vcn-Core.id
+  display_name   = "Peering-Core"
+  peer_id        = oci_core_local_peering_gateway.Peering-VCNCore.id
+}
+
+
 #################
 # TEST SERVER 
 #################
@@ -129,25 +156,4 @@ resource "oci_core_instance" "Test" {
   }
 
 }
-
-# Peering en VNC core
-# resource "oci_core_local_peering_gateway" "Peering-VCNCore" {
-#   compartment_id = oci_identity_compartment.Core-Compartment.id
-#   vcn_id         = oci_core_vcn.Vcn-Core.id
-#   display_name   = "Peering-Core"
-#   peer_id        = oci_core_local_peering_gateway.Peering-VCNCore.id
-# }
-
-# # Rutas para el peering
-# resource "oci_core_route_table" "Peering-RTCore" {
-#   compartment_id = oci_identity_compartment.Core-Compartment.id
-#   vcn_id         = oci_core_vcn.Vcn-Core.id
-#   display_name   = "Tabla Rutas Peering en Core"
-#   route_rules {
-#     destination       = "192.168.50.0/24"
-#     destination_type  = "CIDR_BLOCK"
-#     network_entity_id = module.Cluster.data.network_indentity_cluster
-#   }
-# }     
-
 
