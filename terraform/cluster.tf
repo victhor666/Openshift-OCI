@@ -31,18 +31,18 @@ resource "oci_identity_compartment" "Cluster-Compartment" {
       display_name = "Cluster-IGW"
       enabled = "true"
     }
-
-# Peering con Core
+######################
+# lOCAL PEERING CON CORE
+###################### 
 resource "oci_core_local_peering_gateway" "Peering-VCNCluster" {
    compartment_id = oci_identity_compartment.Cluster-Compartment.id
    vcn_id         = oci_core_virtual_network.Vcn-Cluster.id
    display_name   = "Peering-Cluster"
-   peer_id        = oci_core_local_peering_gateway.Peering-VCNCore.id
  }
 
 
 #############################
-# Tabla de rutas por defecto   
+# VCN CLUSTER RUTAS   
 #############################
     resource "oci_core_default_route_table" "Rt-Cluster" {
       manage_default_resource_id = oci_core_vcn.Vcn-Cluster.default_route_table_id
@@ -140,15 +140,7 @@ resource "oci_core_subnet" "Cluster-Subnet-Priv" {
   prohibit_public_ip_on_vnic      = true
 }
  
-######################
-# Peering  
-######################
-#  resource "oci_core_local_peering_gateway" "Cluster-Peering" {
-#     compartment_id = oci_identity_compartment.Cluster-Compartment.id
-#     vcn_id = oci_core_vcn.Vcn-Core.id
-#     defined_tags = {"Operations.CostCenter"= "42"}
-#     display_name = "Peering con core network"
-# }
+
 ######################
 # Servers CentOS
 ######################
