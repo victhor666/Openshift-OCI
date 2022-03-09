@@ -55,6 +55,18 @@ Los pasos son los siguientes:
 
 <p>Si todo es correcto se desplegará la infraestructura descrita más arriba</p>
 
+<h2>Acceso a los recursos<h2>
 
+El acceso a las máquinas se deberá realizar a traveés del servicio bastion. Para esto iremos en la consola de oci al servicio bastion.
+Y accederemos a través de una conexión activa. 
 
+![adduser](/bastion_session.png)
 
+Si no, crearemos una especificando el servidor de destino, usuario (opc) y la clave pública que creamos al principio:
+![adduser](/add_session.png)
+
+Y con esto, ya podremos obtener (pulsando en los tres puntos a la derecha de la sesión creada) el comando para realizar el ssh, que será como este:
+ 
+  > ssh -i <privateKey> -o ProxyCommand="ssh -i <privateKey> -W %h:%p -p 22 ocid1.bastionsession.oc1.eu-amsterdam-1.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX@host.bastion.eu-amsterdam-1.oci.oraclecloud.com" -p 22 opc@192.168.50.2
+
+  sustituyendo <privateKey> por la ubicación del fichero privado (en este caso linuxuser), el servidor se debería conectar automáticamente a la red privada y sin solicitar contraseña.
