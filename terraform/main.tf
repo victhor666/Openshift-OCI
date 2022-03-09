@@ -35,14 +35,26 @@ resource "oci_identity_compartment" "Core-Compartment" {
 # VCN CORE
 #################
     
-    resource oci_core_vcn "Vcn-Core" {
-      compartment_id = oci_identity_compartment.Core-Compartment.id
-      dns_label      = "CoreNet"
-      cidr_block     = "192.168.10.0/24"
-      display_name   = "Vcn-Core"
-      freeform_tags = {"Propietario"= "Infra",
-                       "Funcion"="Conectividad"}
-    }
+resource oci_core_vcn "Vcn-Core" {
+  compartment_id = oci_identity_compartment.Core-Compartment.id
+  dns_label      = "CoreNet"
+  cidr_block     = var.core_vcn_cidr
+  display_name   = var.vcn_core_display_name
+  freeform_tags = {"Propietario"= "Infra",
+                   "Funcion"="Conectividad"}
+}
+
+resource "oci_core_subnet" "Core-Subnet" {
+  cidr_block                  = var.core_subnet_cidr
+  display_name                = "${var.vcn_core_display_name}-Subnet"
+  dns_label                   = "Bastion"
+  compartment_id              = oci_identity_compartment.Cluster-Compartment.id
+  vcn_id                      = oci_core_vcn.Vcn-Cluster.id
+  route_table_id              = oci_core_default_route_table.Rt-Cluster.id
+  security_list_ids           = [oci_core_security_list.Cluster-SL.id]
+  dhcp_options_id             = oci_core_vcn.Vcn-Cluster.default_dhcp_options_id
+  prohibit_public_ip_on_vnic  = false
+}
 
 # Peering en VNC core
 # resource "oci_core_local_peering_gateway" "Peering-VCNCore" {
@@ -65,17 +77,3 @@ resource "oci_identity_compartment" "Core-Compartment" {
 # }     
 
 
-#################
-# MODULO CLUSTER1
-#################
-module "Cluster" {
-  source                    = "./clustermod"
-  Tenancy                   = var.TenancyID
-  vcn_cluster_cidr          = "192.168.50.0/24"
-  vcn_cluster_dns_label     = "ClusterNet"
-  vcn_cluster_display_name  = "Cluster-Vcn"
-  cluster_subnet_cidr       = "192.168.50.0/28"
-  cluster_subnet_priv_cidr  = "192.168.50.16/28"
-  sistema_operativo         = "CentOS"
-  version_os                = "7"
-}

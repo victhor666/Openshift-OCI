@@ -57,7 +57,7 @@ resource "oci_identity_compartment" "Cluster-Compartment" {
 
 #############################
 # Tabla de rutas por defecto   
-
+#############################
     resource "oci_core_default_route_table" "Rt-Cluster" {
       manage_default_resource_id = oci_core_vcn.Vcn-Cluster.default_route_table_id
     

@@ -3,22 +3,25 @@
 #Network cluster
 variable "vcn_cluster_cidr" {
   type = string
+  default="192.168.50.0/24"
 }
 variable "vcn_cluster_dns_label" {
   type = string
+  default="ClusterNet"
 }
 variable "vcn_cluster_display_name" {
   type = string
+  default="Cluster-Vcn"
 }
-variable "Tenancy" {
-  type = string
-}
+
 #Subnet Publica
 variable "cluster_subnet_cidr" {
   type = string
+  default="192.168.50.16/28"
 }
 variable "cluster_subnet_priv_cidr" {
   type = string
+  default="192.168.50.0/28"
 }
 #Server
 variable "OS" {

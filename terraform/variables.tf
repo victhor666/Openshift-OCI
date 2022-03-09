@@ -20,4 +20,14 @@ variable "ssh_public_key" {
 variable "ssh_private_key" {
   type = string
 }
+variable "core_vcn_cidr"{
+  default="192.168.10.0/24"
+}
 
+variable "core_subnet_cidr"{
+  default="192.168.10.0/28"
+}
+variable "vcn_core_display_name" {
+  type = string
+  default="Core-Vcn"
+}
