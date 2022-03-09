@@ -64,6 +64,17 @@ resource "oci_core_security_list" "Core-SL" {
      protocol    = "all"
     destination = "0.0.0.0/0"
   }
+      dynamic "ingress_security_rules" {
+    for_each = var.puertos_entrada
+    content {
+      protocol = "6"
+      source   = "0.0.0.0/0"
+      tcp_options {
+        max = ingress_security_rules.value
+        min = ingress_security_rules.value
+      }
+    }
+  }
 }
     resource oci_core_internet_gateway "Gtw-Core" {
       compartment_id = oci_identity_compartment.Core-Compartment.id
@@ -76,17 +87,6 @@ resource "oci_core_default_route_table" "Rt-Core" {
   route_rules {
     destination       = "0.0.0.0/0"
     network_entity_id = oci_core_internet_gateway.Gtw-Core.id
-  }
-    dynamic "ingress_security_rules" {
-    for_each = var.puertos_entrada
-    content {
-      protocol = "6"
-      source   = "0.0.0.0/0"
-      tcp_options {
-        max = ingress_security_rules.value
-        min = ingress_security_rules.value
-      }
-    }
   }
 }
 #################
