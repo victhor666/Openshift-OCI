@@ -48,14 +48,36 @@ resource "oci_core_subnet" "Core-Subnet" {
   cidr_block                  = var.core_subnet_cidr
   display_name                = "${var.vcn_core_display_name}-Subnet"
   dns_label                   = "Bastion"
-  compartment_id              = oci_identity_compartment.Cluster-Compartment.id
-  vcn_id                      = oci_core_vcn.Vcn-Cluster.id
-  route_table_id              = oci_core_default_route_table.Rt-Cluster.id
-  security_list_ids           = [oci_core_security_list.Cluster-SL.id]
-  dhcp_options_id             = oci_core_vcn.Vcn-Cluster.default_dhcp_options_id
+  compartment_id              = oci_identity_compartment.Core-Compartment.id
+  vcn_id                      = oci_core_vcn.Vcn-Core.id
+  route_table_id              = oci_core_default_route_table.Rt-Core.id
+  security_list_ids           = [oci_core_security_list.Core-SL.id]
+  dhcp_options_id             = oci_core_vcn.Vcn-Core.default_dhcp_options_id
   prohibit_public_ip_on_vnic  = false
 }
 
+resource "oci_core_security_list" "Core-SL" {
+  compartment_id = oci_identity_compartment.Core-Compartment.id
+  vcn_id = oci_core_vcn.Vcn-Core.id
+  display_name = "Cluster-Security-List-Basica"
+  egress_security_rules {
+     protocol    = "all"
+    destination = "0.0.0.0/0"
+  }
+}
+    resource oci_core_internet_gateway "Gtw-Core" {
+      compartment_id = oci_identity_compartment.Core-Compartment.id
+      vcn_id         = oci_core_vcn.Vcn-Core.id 
+      display_name = "Core-IGW"
+      enabled = "true"
+    }
+resource "oci_core_default_route_table" "Rt-Core" {
+  manage_default_resource_id = oci_core_vcn.Vcn-Core.default_route_table_id
+  route_rules {
+    destination       = "0.0.0.0/0"
+    network_entity_id = oci_core_internet_gateway.Gtw-Core.id
+  }
+}
 # Peering en VNC core
 # resource "oci_core_local_peering_gateway" "Peering-VCNCore" {
 #   compartment_id = oci_identity_compartment.Core-Compartment.id

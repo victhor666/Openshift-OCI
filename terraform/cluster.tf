@@ -131,17 +131,17 @@ resource "oci_core_security_list" "Cluster-SL" {
 # Subredes
 ######################
 #Publica
-    resource "oci_core_subnet" "Cluster-Subnet" {
-      cidr_block                  = var.cluster_subnet_cidr
-      display_name                = "${var.vcn_cluster_display_name}-Subnet"
-      dns_label                   = "Bastion"
-      compartment_id              = oci_identity_compartment.Cluster-Compartment.id
-      vcn_id                      = oci_core_vcn.Vcn-Cluster.id
-      route_table_id              = oci_core_default_route_table.Rt-Cluster.id
-      security_list_ids           = [oci_core_security_list.Cluster-SL.id]
-      dhcp_options_id             = oci_core_vcn.Vcn-Cluster.default_dhcp_options_id
-      prohibit_public_ip_on_vnic  = false
-    }
+resource "oci_core_subnet" "Cluster-Subnet" {
+  cidr_block                  = var.cluster_subnet_cidr
+  display_name                = "${var.vcn_cluster_display_name}-Subnet"
+  dns_label                   = "Bastion"
+  compartment_id              = oci_identity_compartment.Cluster-Compartment.id
+  vcn_id                      = oci_core_vcn.Vcn-Cluster.id
+  route_table_id              = oci_core_default_route_table.Rt-Cluster.id
+  security_list_ids           = [oci_core_security_list.Cluster-SL.id]
+  dhcp_options_id             = oci_core_vcn.Vcn-Cluster.default_dhcp_options_id
+  prohibit_public_ip_on_vnic  = false
+}
 #Privada
 resource "oci_core_subnet" "Cluster-Subnet-Priv" {
   cidr_block                      = var.cluster_subnet_priv_cidr
