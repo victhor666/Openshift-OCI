@@ -60,10 +60,10 @@ Los pasos son los siguientes:
 El acceso a las máquinas se deberá realizar a traveés del servicio bastion. Para esto iremos en la consola de oci al servicio bastion.
 Y accederemos a través de una conexión activa. 
 
-![adduser](/bastion_session.png)
+![adduser](/bastion_sesion.png)
 
 Si no, crearemos una especificando el servidor de destino, usuario (opc) y la clave pública que creamos al principio:
-![adduser](/add_session.png)
+![adduser](/add_session.PNG)
 
 Y con esto, ya podremos obtener (pulsando en los tres puntos a la derecha de la sesión creada) el comando para realizar el ssh, que será como este:
  
