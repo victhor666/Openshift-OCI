@@ -44,17 +44,19 @@ resource "oci_core_local_peering_gateway" "Peering-VCNCluster" {
 #############################
 # VCN CLUSTER RUTAS   
 #############################
-    resource "oci_core_default_route_table" "Rt-Cluster" {
-      manage_default_resource_id = oci_core_vcn.Vcn-Cluster.default_route_table_id
-    
+    resource "oci_core_route_table" "Rt-Cluster" {
+      compartment_id = oci_identity_compartment.Cluster-Compartment.id
+      vcn_id         = oci_core_vcn.Vcn-Cluster.id
+
+      #manage_default_resource_id = oci_core_vcn.Vcn-Cluster.default_route_table_id
       route_rules {
         destination       = "0.0.0.0/0"
         network_entity_id = oci_core_internet_gateway.Gtw-Cluster.id
       }
     route_rules {
-    destination       = var.core_vcn_cidr
-    destination_type  = "CIDR_BLOCK"
-    network_entity_id = oci_core_local_peering_gateway.Peering-VCNCluster.id
+        destination       = var.core_vcn_cidr
+        destination_type  = "CIDR_BLOCK"
+        network_entity_id = oci_core_local_peering_gateway.Peering-VCNCluster.id
   }
     }
 
@@ -122,7 +124,7 @@ resource "oci_core_subnet" "Cluster-Subnet" {
   dns_label                   = "Bastion"
   compartment_id              = oci_identity_compartment.Cluster-Compartment.id
   vcn_id                      = oci_core_vcn.Vcn-Cluster.id
-  route_table_id              = oci_core_default_route_table.Rt-Cluster.id
+  route_table_id              = oci_core_route_table.Rt-Cluster.id
   security_list_ids           = [oci_core_security_list.Cluster-SL.id]
   dhcp_options_id             = oci_core_vcn.Vcn-Cluster.default_dhcp_options_id
   prohibit_public_ip_on_vnic  = false

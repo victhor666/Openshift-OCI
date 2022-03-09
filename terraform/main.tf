@@ -50,7 +50,7 @@ resource "oci_core_subnet" "Core-Subnet" {
   dns_label                   = "Bastion"
   compartment_id              = oci_identity_compartment.Core-Compartment.id
   vcn_id                      = oci_core_vcn.Vcn-Core.id
-  route_table_id              = oci_core_default_route_table.Rt-Core.id
+  route_table_id              = oci_core_route_table.Rt-Core.id
   security_list_ids           = [oci_core_security_list.Core-SL.id]
   dhcp_options_id             = oci_core_vcn.Vcn-Core.default_dhcp_options_id
   prohibit_public_ip_on_vnic  = false
@@ -91,8 +91,8 @@ resource "oci_core_security_list" "Core-SL" {
 #########################
 # VCN CORE RUTAS
 #########################
-resource "oci_core_default_route_table" "Rt-Core" {
-  manage_default_resource_id = oci_core_vcn.Vcn-Core.default_route_table_id
+resource "oci_core_route_table" "Rt-Core" {
+  #manage_default_resource_id = oci_core_vcn.Vcn-Core.default_route_table_id
   route_rules {
     destination       = "0.0.0.0/0"
     network_entity_id = oci_core_internet_gateway.Gtw-Core.id
