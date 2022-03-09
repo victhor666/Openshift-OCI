@@ -92,6 +92,9 @@ resource "oci_core_security_list" "Core-SL" {
 # VCN CORE RUTAS
 #########################
 resource "oci_core_route_table" "Rt-Core" {
+  vcn_id = oci_core_vcn.Vcn-Core.id
+  compartment_id = oci_identity_compartment.Core-Compartment.id
+  display_name   = "Rutas al gw y hacia el cluster"
   #manage_default_resource_id = oci_core_vcn.Vcn-Core.default_route_table_id
   route_rules {
     destination       = "0.0.0.0/0"
