@@ -23,17 +23,11 @@ variable "cluster_subnet_priv_cidr" {
   type = string
   default="192.168.50.0/28"
 }
-#Server
-variable "OS" {
-  default ="Centos"
-}
-variable "OS_Version"{
-  default = "8"
-}
+
 variable "shape"{
   #default = "VM.Standard.E2.1.Micro"
   #default = "VM.Standard.E2.2"
-  default = "VM.Standard.E2.1"
+  default = "VM.Standard.E3.Flex"
 }
 
 #variable "Image_ID"{
@@ -57,7 +51,7 @@ variable "puertos_entrada"{
   default=[22,80,443,8443]
 }
 variable "sistema_operativo"{
-  default ="Ubuntu"
+  default ="Canonical Ubuntu"
 }
 variable "version_os"{
   default= "20.04"
