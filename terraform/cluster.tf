@@ -319,20 +319,3 @@ resource "oci_bastion_session" "BastionSessionWorker1"{
   key_type = "PUB"
   session_ttl_in_seconds = 1800
 }
-resource "oci_bastion_session" "BastionSessionMaster"{
-  depends_on                   =[oci_core_instance.Master-Instance]
-  bastion_id                   = oci_bastion_bastion.BastionService.id
-  key_details {
-    public_key_content         = file(var.path_local_public_key)
-  }
-  target_resource_details {
-    session_type               = "MANAGED_SSH"
-    target_resource_id         = oci_core_instance.Master-Instance.id
-    target_resource_operating_system_user_name = "opc"
-    target_resource_port = 22
-    target_resource_private_ip_address = oci_core_instance.Master-Instance.private_ip
-  }
-  display_name = "AccesoMaster"
-  key_type = "PUB"
-  session_ttl_in_seconds = 1800
-}
