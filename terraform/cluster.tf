@@ -166,6 +166,7 @@ data "oci_core_images" "OSImage" {
     values = ["^Canonical-Ubuntu-20.04-([\\.0-9-]+)$"]
     regex = true
 }
+}
 
 ######################
 # NODO WORKERS
