@@ -161,8 +161,10 @@ data "oci_core_images" "OSImage" {
   compartment_id           = oci_identity_compartment.Cluster-Compartment.id
   operating_system         = var.sistema_operativo
   operating_system_version = var.version_os
-  sort_by = "TIMECREATED"
-  sort_order = "DESC"
+  filter {
+    name = "display_name"
+    values = ["^Canonical-Ubuntu-20.04-([\\.0-9-]+)$"]
+    regex = true
 }
 
 ######################

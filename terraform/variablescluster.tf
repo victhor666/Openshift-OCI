@@ -27,7 +27,7 @@ variable "cluster_subnet_priv_cidr" {
 variable "shape"{
   #default = "VM.Standard.E2.1.Micro"
   #default = "VM.Standard.E2.2"
-  default = "VM.Standard.E2.2"
+  default = "VM.Standard3.Flex"
 }
 
 #variable "Image_ID"{
@@ -36,6 +36,8 @@ variable "shape"{
   #default ="ocid1.image.oc1.eu-amsterdam-1.aaaaaaaaipu6pm6lv6x4nmgorayhw43tqh5tuy55zkjasdjddjw6zkcuasxq"
   #rhcos
   #default="ocid1.image.oc1.eu-amsterdam-1.aaaaaaaafxjjmi2g4blliilpxwc63xmzwte3nu6uxvfs7v5qaant2h3olenq"
+  #canonical ubuntu
+  # default="ocid1.image.oc1.eu-amsterdam-1.aaaaaaaaaftqonaypuf7seixiwx6mg3yvtzhofnwrsxz6arvlf2qkqmtz7jq"
   #}
 variable "path_local_public_key" {
   default = "~/Openshift-OCI/linuxuser.pub"
