@@ -57,8 +57,8 @@ variable "puertos_entrada"{
   default=[22,80,443,8443]
 }
 variable "sistema_operativo"{
-  default ="CentOS"
+  default ="Ubuntu"
 }
 variable "version_os"{
-  default= "7"
+  default= "20.04"
 }
