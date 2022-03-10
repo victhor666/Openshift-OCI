@@ -315,7 +315,7 @@ resource "oci_bastion_session" "Bsession_worker"{
     target_resource_port = 22
     target_resource_private_ip_address = oci_core_instance.Worker-Instance1.private_ip
   }
-  display_name = "Acceso worker"
+  display_name = "Acceso_worker"
   key_type = "PUB"
   session_ttl_in_seconds = 1800
 }
