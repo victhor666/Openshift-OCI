@@ -121,7 +121,7 @@ resource "oci_core_security_list" "Cluster-SL" {
 resource "oci_core_subnet" "Cluster-Subnet" {
   cidr_block                  = var.cluster_subnet_cidr
   display_name                = "${var.vcn_cluster_display_name}-Subnet"
-  dns_label                   = "Bastion"
+  dns_label                   = "pub"
   compartment_id              = oci_identity_compartment.Cluster-Compartment.id
   vcn_id                      = oci_core_vcn.Vcn-Cluster.id
   route_table_id              = oci_core_route_table.Rt-Cluster.id
@@ -133,7 +133,7 @@ resource "oci_core_subnet" "Cluster-Subnet" {
 resource "oci_core_subnet" "Cluster-Subnet-Priv" {
   cidr_block                      = var.cluster_subnet_priv_cidr
   display_name                    = "${var.vcn_cluster_display_name}-Subnet-Priv"
-  dns_label                       = "Openshift"
+  dns_label                       = "priv"
   compartment_id                  = oci_identity_compartment.Cluster-Compartment.id
   vcn_id                          = oci_core_vcn.Vcn-Cluster.id
   route_table_id                  = oci_core_route_table.Nat-GW-RT.id
@@ -166,12 +166,12 @@ data "oci_core_images" "OSImage" {
 }
 
 ######################
-# NODO INFRA
+# NODO WORKERS
 ######################
-resource "oci_core_instance" "Infra-Instance" {
+resource "oci_core_instance" "Worker-Instance1" {
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = oci_identity_compartment.Cluster-Compartment.id
-  display_name        = "Infra"
+  display_name        = "Worker1"
   shape               = var.shape
   shape_config {
     ocpus = 1
@@ -179,14 +179,14 @@ resource "oci_core_instance" "Infra-Instance" {
   }
       metadata = {
         ssh_authorized_keys = file(var.path_local_public_key)
-        user_data = base64encode(file(var.path_local_infra_user_data))                             
+        user_data = base64encode(file(var.path_local_worker_user_data))                             
     } 
 
   create_vnic_details {
     assign_public_ip = false
     subnet_id        = oci_core_subnet.Cluster-Subnet-Priv.id
-    display_name     = "Nic-Infra"
-    hostname_label   = "Infraestructura"
+    display_name     = "Nic-Worker1"
+    hostname_label   = "Worker1"
   }
 
   source_details {
@@ -207,6 +207,48 @@ resource "oci_core_instance" "Infra-Instance" {
    command = "sleep 240"
    }
 }
+##WORKER2 
+
+resource "oci_core_instance" "Worker-Instance2" {
+  availability_domain = data.oci_identity_availability_domain.ad.name
+  compartment_id      = oci_identity_compartment.Cluster-Compartment.id
+  display_name        = "Worker2"
+  shape               = var.shape
+  shape_config {
+    ocpus = 1
+    memory_in_gbs = 8
+  }
+      metadata = {
+        ssh_authorized_keys = file(var.path_local_public_key)
+        user_data = base64encode(file(var.path_local_worker_user_data))                             
+    } 
+
+  create_vnic_details {
+    assign_public_ip = false
+    subnet_id        = oci_core_subnet.Cluster-Subnet-Priv.id
+    display_name     = "Nic-Worker2"
+    hostname_label   = "Worker2"
+  }
+
+  source_details {
+    source_type = "image"
+    source_id = data.oci_core_images.OSImage.images.0.id
+  }
+
+  agent_config {
+    are_all_plugins_disabled = false
+    is_management_disabled = false
+    is_monitoring_disabled = true
+    plugins_config {
+        name = "Bastion"
+        desired_state = "ENABLED"
+      }
+  }
+  provisioner "local-exec"{
+   command = "sleep 240"
+   }
+}
+
 #####################
 # NODO MASTER
 #####################
@@ -221,13 +263,13 @@ resource "oci_core_instance" "Master-Instance" {
   }
       metadata = {
         ssh_authorized_keys = file(var.path_local_public_key)
-        user_data = base64encode(file(var.path_local_infra_user_data))
+        user_data = base64encode(file(var.path_local_master_user_data))
     } 
 
   create_vnic_details {
-    subnet_id        = oci_core_subnet.Cluster-Subnet-Priv.id
+    subnet_id        = oci_core_subnet.Cluster-Subnet.id
     display_name     = "Nic-Master"
-    assign_public_ip = false
+    assign_public_ip = true
     hostname_label   = "Master"
   }
 
@@ -250,11 +292,6 @@ resource "oci_core_instance" "Master-Instance" {
    }
 }
 ######################
-# NODOS WORKER
-######################
-
-
-######################
 # SERVICIO BASTION
 ######################
 resource "oci_bastion_bastion" "BastionService" {
@@ -263,24 +300,24 @@ resource "oci_bastion_bastion" "BastionService" {
   target_subnet_id             = oci_core_subnet.Cluster-Subnet.id
   client_cidr_block_allow_list = ["0.0.0.0/0"]
   name                         ="BastionService"
-  max_session_ttl_in_seconds   = 1800
+  max_session_ttl_in_seconds   = 12000
 }
-resource "oci_bastion_session" "BastionSessionInfra"{
-  depends_on                   =[oci_core_instance.Infra-Instance]
+resource "oci_bastion_session" "BastionSessionWorker1"{
+  depends_on                   =[oci_core_instance.Worker-Instance1]
   bastion_id                   = oci_bastion_bastion.BastionService.id
   key_details {
     public_key_content         = file(var.path_local_public_key)
   }
   target_resource_details {
     session_type               = "MANAGED_SSH"
-    target_resource_id         = oci_core_instance.Infra-Instance.id
+    target_resource_id         = oci_core_instance.Worker-Instance1.id
     target_resource_operating_system_user_name = "opc"
     target_resource_port = 22
-    target_resource_private_ip_address = oci_core_instance.Infra-Instance.private_ip
+    target_resource_private_ip_address = oci_core_instance.Worker-Instance1.private_ip
   }
-  display_name = "AccesoInfra"
+  display_name = "Acceso worker"
   key_type = "PUB"
-  session_ttl_in_seconds = 1800
+  session_ttl_in_seconds = 6000
 }
 resource "oci_bastion_session" "BastionSessionMaster"{
   depends_on                   =[oci_core_instance.Master-Instance]
@@ -297,5 +334,5 @@ resource "oci_bastion_session" "BastionSessionMaster"{
   }
   display_name = "AccesoMaster"
   key_type = "PUB"
-  session_ttl_in_seconds = 1800
+  session_ttl_in_seconds = 6000
 }

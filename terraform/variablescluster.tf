@@ -47,11 +47,11 @@ variable "path_local_public_key" {
   default = "~/Openshift-OCI/linuxuser.pub"
   sensitive = true
 }
-# variable "path_local_master_user_data" {
-#   default = "~/Openshift-OCI/master_user_data.sh"
-# }
-variable "path_local_infra_user_data" {
-  default = "~/Openshift-OCI/infra_user_data.sh"
+ variable "path_local_master_user_data" {
+   default = "~/Openshift-OCI/master_user_data.sh"
+ }
+variable "path_local_worker_user_data" {
+  default = "~/Openshift-OCI/worker_user_data.sh"
 }
 variable "puertos_entrada"{
   default=[22,80,443,8443]
