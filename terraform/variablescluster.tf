@@ -27,7 +27,7 @@ variable "cluster_subnet_priv_cidr" {
 variable "shape"{
   #default = "VM.Standard.E2.1.Micro"
   #default = "VM.Standard.E2.2"
-  default = "VM.Standard.E3.Flex"
+  default = "VM.Standard.E2.2"
 }
 
 #variable "Image_ID"{
