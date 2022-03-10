@@ -302,7 +302,7 @@ resource "oci_bastion_bastion" "BastionService" {
   name                         ="BastionService"
   max_session_ttl_in_seconds   = 1800
 }
-resource "oci_bastion_session" "BastionSessionWorker1"{
+resource "oci_bastion_session" "Bsession_worker"{
   depends_on                   =[oci_core_instance.Worker-Instance1]
   bastion_id                   = oci_bastion_bastion.BastionService.id
   key_details {
