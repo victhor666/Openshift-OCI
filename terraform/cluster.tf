@@ -300,7 +300,7 @@ resource "oci_bastion_bastion" "BastionService" {
   target_subnet_id             = oci_core_subnet.Cluster-Subnet.id
   client_cidr_block_allow_list = ["0.0.0.0/0"]
   name                         ="BastionService"
-  max_session_ttl_in_seconds   = 12000
+  max_session_ttl_in_seconds   = 1800
 }
 resource "oci_bastion_session" "BastionSessionWorker1"{
   depends_on                   =[oci_core_instance.Worker-Instance1]
@@ -317,7 +317,7 @@ resource "oci_bastion_session" "BastionSessionWorker1"{
   }
   display_name = "Acceso worker"
   key_type = "PUB"
-  session_ttl_in_seconds = 6000
+  session_ttl_in_seconds = 1800
 }
 resource "oci_bastion_session" "BastionSessionMaster"{
   depends_on                   =[oci_core_instance.Master-Instance]
@@ -334,5 +334,5 @@ resource "oci_bastion_session" "BastionSessionMaster"{
   }
   display_name = "AccesoMaster"
   key_type = "PUB"
-  session_ttl_in_seconds = 6000
+  session_ttl_in_seconds = 1800
 }
